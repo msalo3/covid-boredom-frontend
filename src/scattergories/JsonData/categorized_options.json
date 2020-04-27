@@ -1,0 +1,283 @@
+[
+  {
+    "category": "Television and Movies",
+    "items": [
+      "Soap Opera Stars",
+      "Classic Movies",
+      "Video Game Characters",
+      "Disney Characters",
+      "Scary Movies",
+      "Kids Movies",
+      "Classic TV Characters",
+      "Star Trek Characters",
+      "Comedies",
+      "Sitcom Characters",
+      "Cable Networks",
+      "A-List Celebrities"
+    ]
+  },
+  {
+    "category": "Music",
+    "items": [
+      "80s Glam Bands",
+      "Teen Idols",
+      "Popular Rappers",
+      "Country Music Stars",
+      "Famous Composers",
+      "Rock Stars",
+      "Divas",
+      "Love Songs",
+      "Music Genres",
+      "Praise and Worship Songs",
+      "Boy Bands",
+      "Timeless Musicians"
+    ]
+  },
+  {
+    "category": "Education",
+    "items": [
+      "Classic Literature",
+      "Children's Books",
+      "Topics in Science",
+      "College Names",
+      "College Mascots",
+      "College Degrees",
+      "School Supplies",
+      "School Subjects",
+      "School Rooms",
+      "Math Skills",
+      "Famous People in History",
+      "Kindergarten Activities"
+    ]
+  },
+  {
+    "category": "Food and Drink",
+    "items": [
+      "Cooking Shows",
+      "Pies and Cakes",
+      "Desserts",
+      "International Foods",
+      "Popular Restaurants",
+      "Types of Pop/Soda",
+      "Health Foods",
+      "Fruits and Vegetables",
+      "Unhealthy Foods",
+      "Types of Ice Cream",
+      "Spices",
+      "Types of Cereal"
+    ]
+  },
+  {
+    "category": "Sports and Hobbies",
+    "items": [
+      "Collectors' Items",
+      "Team Sports",
+      "Individual Sports",
+      "Exercises",
+      "Yoga Poses",
+      "Outdoor Activities",
+      "Party Games",
+      "Kids' Games",
+      "Football Players",
+      "Basketball Players",
+      "Olympic Athletes",
+      "Olympic Sports"
+    ]
+  },
+  {
+    "category": "Animals",
+    "items": [
+      "Animals at the Zoo",
+      "Creatures at the Aquarium",
+      "Park Animals",
+      "Pets",
+      "Types of Fish",
+      "Types of Dogs",
+      "Types of Cats",
+      "Animals in Africa",
+      "Creatures in the Desert",
+      "Carnivores",
+      "Herbivores",
+      "Types of Birds"
+    ]
+  },
+  {
+    "category": "People and Places",
+    "items": [
+      "Cities in the US",
+      "Honeymoon Destinations",
+      "Famous Landmarks",
+      "Capital Cities",
+      "Amusement Parks",
+      "Fast Food Restaurants",
+      "National Parks",
+      "Famous Authors",
+      "Politicians",
+      "Nobel Peace Prize Winners",
+      "Famous Millionaires",
+      "Supermodels"
+    ]
+  },
+  {
+    "category": "Daily Life",
+    "items": [
+      "Things In the Bathroom",
+      "Things In the Bedroom",
+      "Things In the Kitchen",
+      "Things In the Garden",
+      "Things You Recycle",
+      "Things in the Dairy Aisle",
+      "Cleaning Products",
+      "Kids' Toys",
+      "Furniture",
+      "Household Chores",
+      "Household Appliances",
+      "Items of Clothing"
+    ]
+  },
+  {
+    "category": "Halloween",
+    "items": [
+      "Costume",
+      "Names of witches",
+      "Names of fairies",
+      "Names of villains from fictional movie",
+      "Names of horror movies",
+      "Halloween candies",
+      "Halloween creature that flies",
+      "Halloween weapons",
+      "Halloween character which is black",
+      "Halloween games",
+      "Costume store names in town",
+      "Halloween monsters",
+      "Halloween food item",
+      "Scary television series",
+      "Scary movies",
+      "Halloween games",
+      "Name of famous vampire",
+      "Halloween scary trick",
+      "Halloween drink",
+      "Ghost names from movies or serial",
+      "Books on Halloween",
+      "Villain from comics",
+      "Songs to play on Halloween",
+      "Synonyms for scary"
+    ]
+  },
+  {
+    "category": "Wedding",
+    "items": [
+      "Names of people needed at a wedding",
+      "Something in bridal wear",
+      "Best thing about being single",
+      "Best thing about marriage",
+      "Names of movies on wedding",
+      "Famous celebrity married actress",
+      "Romantic destinations on earth",
+      "Things you like about the bride",
+      "Things you like about the groom",
+      "Flavor of cake",
+      "Wedding songs",
+      "Romantic movies to watch",
+      "Dance styles for couples",
+      "Brands for wedding rings",
+      "Wedding wishes",
+      "Color of bedroom",
+      "Drinks served in a wedding",
+      "Term of endearment for a spouse",
+      "A wedding gift",
+      "Wedding food item",
+      "A wedding custom",
+      "Bad gifts for wedding",
+      "Things needed on a wedding",
+      "Celebrity married actor"
+    ]
+  },
+  {
+    "category": "Christmas",
+    "items": [
+      "Christmas character",
+      "Movies on Christmas",
+      "Something green in Christmas",
+      "Christmas food",
+      "Something at the north pole",
+      "Christmas delicacy",
+      "Christmas decorations",
+      "Christmas gift for your mother",
+      "Christmas gift for your grandmother",
+      "Christmas holiday location",
+      "Snow activities",
+      "Wish for this Christmas",
+      "Character from Christmas movie",
+      "Christmas gift for your grandfather",
+      "Christmas gift for your daughter",
+      "Something that has red and white color",
+      "Activity in Christmas holiday",
+      "Christmas song",
+      "Presents that can fit in a stocking",
+      "Christmas gift for your teacher",
+      "Christmas gift for your father",
+      "Christmas family tradition",
+      "Christmas children’s book",
+      "Christmas gift for your son"
+    ]
+  },
+  {
+    "category": "Funny Stuff",
+    "items": [
+      "Funny adjectives for your boss",
+      "Funny nicknames",
+      "Useless things to do",
+      "Funny cartoon names",
+      "Funny names of celebrities",
+      "Animal noises",
+      "Gag gift",
+      "Funny horror movies",
+      "Funny names of places",
+      "Funny food names",
+      "Names of pranks",
+      "Sticky things",
+      "Things you hate about your job",
+      "Things you hate about your in-laws",
+      "Comic movie name",
+      "Comic television serials",
+      "Food you hate",
+      "Type of a smell",
+      "Funny fictional character names",
+      "Notorious celebrities",
+      "Bad habits",
+      "Synonyms for lazy",
+      "Funny songs",
+      "Famous comic actor/actress"
+    ]
+  },
+  {
+    "category": "Baby Shower",
+    "items": [
+      "Girl names",
+      "Boy names",
+      "Kid’s clothes",
+      "Names of pregnancy books",
+      "Diaper brands",
+      "Baby soap brand names",
+      "Baby soaps",
+      "Gifts to mother",
+      "Nursery rhymes",
+      "Baby colors",
+      "Baby shower songs",
+      "Baby food",
+      "Endearment names for a baby",
+      "Celebrity baby names",
+      "Toys for babies",
+      "Food during pregnancy",
+      "Baby food brand names",
+      "Baby clothes brand names",
+      "Things needed by a baby",
+      "Famous movie featuring a baby",
+      "Television serial names for babies",
+      "Maternity magazine names",
+      "Names for addressing mother",
+      "Names for addressing father"
+    ]
+  }
+]

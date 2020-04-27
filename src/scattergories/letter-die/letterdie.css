@@ -1,0 +1,16 @@
+.letter-die {
+  text-align: center;
+  margin-top: 60px;
+  align-items: center;
+  justify-content: center;
+}
+
+.letter {
+  color: #3151ff;
+  font-weight: bold;
+  font-size: 60px;
+}
+ 
+.set{
+  color: #0BD952;
+}

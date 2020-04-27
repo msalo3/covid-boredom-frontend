@@ -1,0 +1,20 @@
+version: '3'
+services:
+  covid_boredom_frontend:
+    container_name: covid_boredom_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: yarn start
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"

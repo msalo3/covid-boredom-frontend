@@ -1,0 +1,29 @@
+.heading {
+  font-size: calc(20px + 2vmin);
+  font-weight: 20;
+}
+
+.info-icon {
+  font-size: calc(1px + 2vmin);
+  font-weight: 20;
+}
+
+.config {
+  border-color: #677490;
+  padding: .6rem 1.5rem;
+  margin: .4rem;
+  border-radius: 3px;
+  border-style: groove;
+  background-color: #282c34;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.grid {
+  align-items: center;
+}
