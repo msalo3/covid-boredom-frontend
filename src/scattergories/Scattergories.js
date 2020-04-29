@@ -58,9 +58,7 @@ class Scattergories extends React.Component {
           </sup>
         </Header>
         <div style={mobile ? gridMobileStyle : gridStyle}>
-          <div>
-            <List timerIsCounting={timerIsCounting} mobile={mobile}/>
-          </div>
+          <List timerIsCounting={timerIsCounting} mobile={mobile}/>
           <div style={mobile ? configMobileStyle : configStyle}>
             <div>
               {this.timerOrInput()}

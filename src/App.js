@@ -7,6 +7,7 @@ import {
 import Home from './home/Home';
 import ChatStart from './chat/ChatStart';
 import Color from './color/Color';
+import ComingSoon from './soon/comingSoon';
 import Scattergories from './scattergories/Scattergories';
 import TopLevel from './TopLevel';
 
@@ -36,7 +37,7 @@ class App extends React.Component {
             path="/chat"
             render={(props) => (
               <TopLevel {...props} mobile={mobile}>
-                {<Home {...props} mobile={mobile}/>}
+                {<ComingSoon {...props} mobile={mobile}/>}
               </TopLevel>
             )}
           />
@@ -44,7 +45,7 @@ class App extends React.Component {
             path="/color"
             render={(props) => (
               <TopLevel {...props} mobile={mobile}>
-                {<Home {...props} mobile={mobile}/>}
+                {<ComingSoon {...props} mobile={mobile}/>}
               </TopLevel>
             )}
           />

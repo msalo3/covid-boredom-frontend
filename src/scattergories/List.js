@@ -51,7 +51,7 @@ class List extends React.Component {
               />
             </span>
           </Grid.Column>
-          <Grid.Column width={2}>
+          <Grid.Column width={4}>
             <Button
               style={{ justifySelf: 'right'}}
               onClick={() => this.randomizeListId()}
