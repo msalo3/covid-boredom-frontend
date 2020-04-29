@@ -13,6 +13,7 @@ const LetterDie = () => {
 
   function rollDie() {
     setIsActive(true);
+    setCounter(0);
   }
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const LetterDie = () => {
             <p className={isActive ? "letter" : "letter set"}>{letter}</p>
           </Grid.Row>
         </Grid>
-        <Button onClick={() => rollDie()}>
+        <Button onClick={() => rollDie()} disabled={isActive}>
           Spin the Wheel!
         </Button>
       </div>

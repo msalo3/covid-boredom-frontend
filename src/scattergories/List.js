@@ -4,6 +4,8 @@ import data from './JsonData/scattergories_lists.json';
 
 import './list.css'
 
+const listContainerStyle = {textAlign: 'left', margin: '10px'};
+
 class List extends React.Component {
   constructor(props) {
     super(props);
@@ -11,13 +13,13 @@ class List extends React.Component {
       listId: 1
     }
   }
-  renderListItems = (list, timerIsCounting) => (
+  renderListItems = (list, timerIsCounting, mobile) => (
     list.list_items.map((item, i) => {
       if (timerIsCounting) {
-        return <Header as='h3' key={item.id}>{`${item.id}. ${item.title}`}</Header>;
+        return <Header as={mobile ? 'h4' : 'h3'} key={item.id}>{`${item.id}. ${item.title}`}</Header>;
       }
       return(
-        <Header as='h3' key={item.id} className="redacted">
+        <Header as={mobile ? 'h4' : 'h3'} key={item.id} className="redacted">
           {item.id}. <span>{item.title}</span>
         </Header>
       );
@@ -29,14 +31,14 @@ class List extends React.Component {
   }
 
   render () {
-    const { timerIsCounting } = this.props;
+    const { timerIsCounting, mobile } = this.props;
     const { listId } = this.state;
     const list = data[listId - 1];
     return (
       <div>
-        <Grid as="h2">
-        <Grid.Column width={3} />
-          <Grid.Column width={6}>
+        <Grid as={mobile ? "h3" : "h2"}>
+          <Grid.Column width={mobile ? 3 : 1} />
+          <Grid.Column width={mobile ? 6 : 10}>
             <span>
               List Number{' '}
               <Dropdown
@@ -50,13 +52,17 @@ class List extends React.Component {
             </span>
           </Grid.Column>
           <Grid.Column width={2}>
-            <Button style={{ justifySelf: 'right'}} onClick={() => this.randomizeListId()}>
+            <Button
+              style={{ justifySelf: 'right'}}
+              onClick={() => this.randomizeListId()}
+              size={mobile ? "tiny" : "medium"}
+            >
               Randomize
             </Button>
           </Grid.Column>
         </Grid>
-        <div style={{textAlign: 'left'}}>
-          {this.renderListItems(list, timerIsCounting)}
+        <div style={listContainerStyle}>
+          {this.renderListItems(list, timerIsCounting, mobile)}
         </div>
       </div>
     );

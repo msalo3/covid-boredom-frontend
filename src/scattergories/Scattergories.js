@@ -1,18 +1,21 @@
 import React from "react"
-import { Grid, Divider } from 'semantic-ui-react'
+import { Header, Divider } from 'semantic-ui-react'
 import List from './List';
 import Timer from './timer/Timer';
 import TimerInput from './timer/TimerInput';
 import LetterDie from './letter-die/LetterDie'
 import Instructions from './Instructions';
+import styles from './scattergories_styles';
 
-import './scattergories.css';
+const { 
+  configStyle,
+  configMobileStyle,
+  headingStyle,
+  infoIconStyle,
+  gridStyle,
+  gridMobileStyle
+} = styles;
 
-const style = {
-  timerStyle: {
-    minHeight: '200px'
-  }
-}
 
 class Scattergories extends React.Component {
   constructor(props) {
@@ -45,25 +48,29 @@ class Scattergories extends React.Component {
 
   render() {
     const {timerIsCounting } = this.state;
+    const {mobile } = this.props;
     return (
-      <div>
-        <p className='heading'>
-          Scattergories<sup className="info-icon"><Instructions /></sup>
-        </p>
-        <Grid style={{marginTop: '20px'}}>
-          <Grid.Column width={6} style={{marginLeft: '200px'}}>
-            <List timerIsCounting={timerIsCounting}/>
-          </Grid.Column>
-          <Grid.Column width={6} className='config'>
-            <Grid.Row style={style.timerStyle}>
+      <div style={{ marginTop: '10px' }}>
+        <Header style={{headingStyle}}>
+          Scattergories
+          <sup style={{infoIconStyle}}>
+            <Instructions />
+          </sup>
+        </Header>
+        <div style={mobile ? gridMobileStyle : gridStyle}>
+          <div>
+            <List timerIsCounting={timerIsCounting} mobile={mobile}/>
+          </div>
+          <div style={mobile ? configMobileStyle : configStyle}>
+            <div>
               {this.timerOrInput()}
-            </Grid.Row>
+            </div>
             <Divider />
-            <Grid.Row>
+            <div>
               <LetterDie />
-            </Grid.Row>
-          </Grid.Column>
-        </Grid>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

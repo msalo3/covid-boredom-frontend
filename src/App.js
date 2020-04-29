@@ -2,54 +2,72 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import { Grid } from 'semantic-ui-react'
 import Home from './home/Home';
 import ChatStart from './chat/ChatStart';
 import Color from './color/Color';
 import Scattergories from './scattergories/Scattergories';
+import TopLevel from './TopLevel';
 
-import './App.css';
 
-export default function App() {
-  return (
-    <Router>
-      <div className="App">
-        <nav className="Nav">
-          <Grid>
-            <Grid.Column>
-              <Link to="/">Home</Link>
-            </Grid.Column>
-            <Grid.Column>
-              <Link to="/chat">Chat</Link>
-            </Grid.Column>
-            <Grid.Column>
-              <Link to="/color">Color</Link>
-            </Grid.Column>
-            <Grid.Column>
-              <Link to="/scattergories">Scattergories</Link>
-            </Grid.Column>
-          </Grid>
-        </nav>
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mobile: window.innerWidth <= 760
+    }
+  }
+  
+  componentDidMount() {
+    window.addEventListener("resize", this.resize.bind(this));
+    this.resize();
+  }
+  
+  resize() {
+    this.setState({mobile: window.innerWidth <= 760});
+  }
+  render () {
+    const { mobile } = this.state;
+    return (
+      <Router>
         <Switch>
-          <Route path="/chat">
-            <Home />
-            {/* <ChatStart /> */}
-          </Route>
-          <Route path="/color">
-            <Home />
-            {/* <Color /> */}
-          </Route>
-          <Route path="/scattergories">
-            <Scattergories />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
+          <Route
+            path="/chat"
+            render={(props) => (
+              <TopLevel {...props} mobile={mobile}>
+                {<Home {...props} mobile={mobile}/>}
+              </TopLevel>
+            )}
+          />
+          <Route
+            path="/color"
+            render={(props) => (
+              <TopLevel {...props} mobile={mobile}>
+                {<Home {...props} mobile={mobile}/>}
+              </TopLevel>
+            )}
+          />
+          <Route
+            path="/scattergories"
+            render={(props) => (
+              <TopLevel {...props} mobile={mobile}>
+                {<Scattergories {...props} mobile={mobile}/>}
+              </TopLevel>
+            )}
+          />
+          <Route
+            path="/"
+            render={(props) => (
+              <TopLevel {...props} mobile={mobile}>
+                {<Home {...props} mobile={mobile}/>}
+              </TopLevel>
+            )}
+          />
         </Switch>
-      </div>
-    </Router>
-  );
+      </Router>
+    );
+  }
 }
+
+export default App;
