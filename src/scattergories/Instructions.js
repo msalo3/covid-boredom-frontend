@@ -17,7 +17,13 @@ const setupStyle = {
 };
 
 const Instructions = () => (
-  <Modal trigger={<Icon name="info circle" />} basic size='large' dimmer>
+  <Modal
+    trigger={<Icon name="info circle" />}
+    basic
+    size='large'
+    closeIcon
+    dimmer
+  >
     <Modal.Content>
       <p className="item" style={setupStyle}>Objective:</p>
       <p className="item">{BASIC}</p>
