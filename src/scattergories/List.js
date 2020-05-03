@@ -1,27 +1,26 @@
 import React from "react"
-import { Header, Dropdown, Grid, Button } from 'semantic-ui-react'
 import data from './JsonData/scattergories_lists.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './list.css'
-
-const listContainerStyle = {textAlign: 'left', margin: '10px'};
 
 class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      listId: 1
+      listId: 1,
+      data: data
     }
   }
-  renderListItems = (list, timerIsCounting, mobile) => (
+  renderListItems = (list, timerIsCounting) => (
     list.list_items.map((item, i) => {
       if (timerIsCounting) {
-        return <Header as={mobile ? 'h4' : 'h3'} key={item.id}>{`${item.id}. ${item.title}`}</Header>;
+        return <h3 key={item.id}>{`${item.id}. ${item.title}`}</h3>;
       }
       return(
-        <Header as={mobile ? 'h4' : 'h3'} key={item.id} className="redacted">
+        <h3 key={item.id} className="redacted">
           {item.id}. <span>{item.title}</span>
-        </Header>
+        </h3>
       );
     })
   );
@@ -30,39 +29,39 @@ class List extends React.Component {
     this.setState({ listId: randomId });
   }
 
+  selectList = (timerIsCounting) => (
+    <div>
+      List Number{' '}
+      <select
+        id="lists"
+        disabled={timerIsCounting}
+        onChange={(event) => this.setState({ listId: event.target.value })}
+      >
+        {data.map((item) => (
+          <option value={item.value}>{item.value}</option>
+        ))}
+      </select>
+    </div>
+  )
+
   render () {
-    const { timerIsCounting, mobile } = this.props;
-    const { listId } = this.state;
+    const { timerIsCounting } = this.props;
+    const { listId, data } = this.state;
     const list = data[listId - 1];
     return (
       <div>
-        <Grid as={mobile ? "h3" : "h2"}>
-          <Grid.Column width={mobile ? 3 : 1} />
-          <Grid.Column width={mobile ? 6 : 10}>
-            <span>
-              List Number{' '}
-              <Dropdown
-                inline
-                scrolling
-                disabled={timerIsCounting}
-                options={data}
-                value={listId}
-                onChange={(e, { value }) => this.setState({ listId: value })}
-              />
-            </span>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Button
-              style={{ justifySelf: 'right'}}
-              onClick={() => this.randomizeListId()}
-              size={mobile ? "tiny" : "medium"}
-            >
-              Randomize
-            </Button>
-          </Grid.Column>
-        </Grid>
-        <div style={listContainerStyle}>
-          {this.renderListItems(list, timerIsCounting, mobile)}
+        <span className={`game-container tooltip ${timerIsCounting ? 'inactive' : ''}`}>
+          <div>List {listId}</div>
+          <span class="tooltiptext">Randomize</span>
+          <div className="random">
+            <FontAwesomeIcon
+              icon='random'
+              onClick={() => !timerIsCounting && this.randomizeListId()}
+            />
+          </div>
+        </span>
+        <div className="list-container">
+          {this.renderListItems(list, timerIsCounting)}
         </div>
       </div>
     );

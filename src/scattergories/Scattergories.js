@@ -1,21 +1,21 @@
 import React from "react"
-import { Header, Divider } from 'semantic-ui-react'
 import List from './List';
 import Timer from './timer/Timer';
 import TimerInput from './timer/TimerInput';
 import LetterDie from './letter-die/LetterDie'
 import Instructions from './Instructions';
-import styles from './scattergories_styles';
 
-const { 
-  configStyle,
-  configMobileStyle,
-  headingStyle,
-  infoIconStyle,
-  gridStyle,
-  gridMobileStyle
-} = styles;
+import './scattergories.css';
 
+
+const ScatHead = () => (
+  <h2 className="header">
+    Scattergories
+    <sup className="icon">
+      <Instructions />
+    </sup>
+  </h2>
+);
 
 class Scattergories extends React.Component {
   constructor(props) {
@@ -42,31 +42,21 @@ class Scattergories extends React.Component {
       <TimerInput
         setMinutes={(value) => this.setState({ minutes: value, timeIsSet: true })}
         timeIsSet={timeIsSet}
+        minutes={minutes}
       />
     );
   }
 
   render() {
     const {timerIsCounting } = this.state;
-    const {mobile } = this.props;
     return (
-      <div style={{ marginTop: '10px' }}>
-        <Header style={{headingStyle}}>
-          Scattergories
-          <sup style={{infoIconStyle}}>
-            <Instructions />
-          </sup>
-        </Header>
-        <div style={mobile ? gridMobileStyle : gridStyle}>
-          <List timerIsCounting={timerIsCounting} mobile={mobile}/>
-          <div style={mobile ? configMobileStyle : configStyle}>
-            <div>
-              {this.timerOrInput()}
-            </div>
-            <Divider />
-            <div>
-              <LetterDie />
-            </div>
+      <div>
+        <ScatHead />
+        <div className="scat-content">
+          <List timerIsCounting={timerIsCounting}/>
+          <div className="config-content">
+            {this.timerOrInput()}
+            <LetterDie timerIsCounting={timerIsCounting} s/>
           </div>
         </div>
       </div>

@@ -1,16 +1,21 @@
-.letter-die {
+.letter-die-container {
   text-align: center;
   margin-top: 60px;
   align-items: center;
   justify-content: center;
 }
 
+.letter-container {
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
 .letter {
-  color: #3151ff;
+  color: var(--color-letter-spin);
   font-weight: bold;
   font-size: 60px;
 }
  
 .set{
-  color: #0BD952;
+  color: var(--color-qmark);
 }

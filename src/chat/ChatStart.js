@@ -1,5 +1,4 @@
 import React from "react"
-import { Header } from 'semantic-ui-react'
 import apiClient from '../api/api-client';
 import Chat from './Chat';
 import Setup from './Setup';
@@ -28,7 +27,7 @@ class ChatStart extends React.Component {
   render() {
     return (
       <div>
-        <Header as='h1'>Chat Bot</Header>
+        <h1>Chat Bot</h1>
         {this.buttonOrChat()}
       </div>
     );

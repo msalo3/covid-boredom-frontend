@@ -1,11 +1,11 @@
 import React from "react"
-import { Header } from 'semantic-ui-react'
 
+import './home.css';
 class Home extends React.Component {
   render() {
     return (
       <div>
-        <Header as='h1'>Home</Header>
+        <h1 className="header">Home</h1>
       </div>
     );
   }

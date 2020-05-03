@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Grid } from 'semantic-ui-react'
 
 import './letterdie.css';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T'];
 
-const LetterDie = () => {
+const LetterDie = ({ timerIsCounting }) => {
 
-  const [letter, setLetter] = useState('?');
+  const [letter, setLetter] = useState('X');
   const [counter, setCounter] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
@@ -36,15 +35,17 @@ const LetterDie = () => {
 
 
     return (
-      <div className="letter-die">
-        <Grid style={{marginTop: '20px'}}>
-          <Grid.Row style={{justifyContent: 'space-around'}}>
-            <p className={isActive ? "letter" : "letter set"}>{letter}</p>
-          </Grid.Row>
-        </Grid>
-        <Button onClick={() => rollDie()} disabled={isActive}>
+      <div className="letter-die-container">
+        <div className="letter-container">
+          <p className={isActive ? "letter" : "letter set"}>{letter}</p>
+        </div>
+        <button
+          onClick={() => rollDie()}
+          disabled={isActive || timerIsCounting}
+          className="button btn-time"
+        >
           Spin the Wheel!
-        </Button>
+        </button>
       </div>
     );
   }

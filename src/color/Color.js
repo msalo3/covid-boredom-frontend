@@ -1,5 +1,4 @@
 import React from "react"
-import { Header, Button } from 'semantic-ui-react'
 import colorApi from '../api/color-api-client';
 import ColorGame from './ColorGame';
 
@@ -38,16 +37,16 @@ class Color extends React.Component {
       return <ColorGame colors={colors} chosenColor={chosenColor} />;
     }
     return (
-      <Button onClick={() => this.getSomeColors()}>
+      <button onClick={() => this.getSomeColors()}>
         Play the Color Game
-      </Button>
+      </button>
     );
   }
 
   render() {
     return (
       <div>
-        <Header as='h1'>Chat Bot</Header>
+        <h1>Chat Bot</h1>
         {this.buttonOrColorGame()}
         <p>{getRandomColor()}</p>
       </div>

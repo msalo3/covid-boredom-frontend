@@ -1,5 +1,4 @@
 import React from "react"
-import { Header, Button } from 'semantic-ui-react'
 
 class ColorGame extends React.Component {
   state = {};
@@ -7,7 +6,7 @@ class ColorGame extends React.Component {
   render() {
     return (
       <div>
-        <Header as='h1'>Color Game</Header>
+        <h1>Color Game</h1>
       </div>
     );
   }

@@ -41,23 +41,23 @@ const Timer = (props) => {
   }
 
   return (
-    <div className="app">
+    <div className="timer-container">
       <div className="time">
         {displayTime(seconds)}
       </div>
       <div className="row">
         <button
-          className={seconds === 0 ? 'button-hide' : `button button-primary button-primary-${isActive ? 'active' : 'inactive'}`}
+          className={seconds === 0 ? 'hide' : 'button btn-time'}
           onClick={toggle}
         >
           {isActive ? 'Pause' : 'Start'}
         </button>
-        <button className="button" onClick={reset}>
+        <button className="button  btn-time" onClick={reset}>
           Reset
         </button>
       </div>
       <div className="row">
-        <button className={isActive ? "button-hide" : "button"} onClick={() => props.onClick()}>
+        <button className={`button btn-time ${isActive ? 'hide' : ''}`} onClick={() => props.onClick()}>
           Customize Time
         </button>
       </div>

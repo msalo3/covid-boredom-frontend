@@ -1,11 +1,12 @@
 import React from "react"
-import { Header } from 'semantic-ui-react'
+
+import './soon.css';
 
 class ComingSoon extends React.Component {
   render() {
     return (
       <div>
-        <Header as='h1'>Coming Soon...</Header>
+        <h1 className="header">Coming Soon...</h1>
       </div>
     );
   }

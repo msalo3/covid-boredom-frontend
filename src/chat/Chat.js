@@ -1,5 +1,4 @@
 import React from "react"
-import { Button, Form } from 'semantic-ui-react'
 import apiClient from '../api/api-client';
 import WindowForText from './WindowForText';
 
@@ -25,18 +24,16 @@ class Chat extends React.Component {
     return (
       <div>
         <WindowForText />
-        <Form onSubmit={this.state.msg !== "" && this.sendMessage}>
-          <Form.Field required>
+        <form onSubmit={this.state.msg !== "" && this.sendMessage}>
           <input
               name="message"
               value={this.state.msg}
               onChange={(e) => this.setState({ msg: e.target.value })}
             />
-          </Form.Field>
-          <Button basic color='green' type="submit">
+          <button>
             Send
-          </Button>
-        </Form>
+          </button>
+        </form>
       </div>
     );
   }

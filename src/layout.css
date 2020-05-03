@@ -1,0 +1,16 @@
+:root {
+  --color-bg: #282c34;
+  --color-text: #ffffff;
+  --color-primary: #555;
+  --color-secondary: #0c969b;
+  --color-hover-bg: #3c5d74;
+  --color-hover-border: #1b1f2b;
+}
+
+body {
+  background: #282c34; /* fallback */
+  background: var(--color-bg);
+  color: #ffffff;
+  color: var(--color-text);
+  transition: background 0.8s, color 0.8s;
+}

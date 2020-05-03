@@ -1,5 +1,4 @@
 import React from 'react'
-import { Icon, Modal } from 'semantic-ui-react'
 
 import './instructions.css';
 
@@ -17,27 +16,28 @@ const setupStyle = {
 };
 
 const Instructions = () => (
-  <Modal
-    trigger={<Icon name="info circle" />}
-    basic
-    size='large'
-    closeIcon
-    dimmer
-  >
-    <Modal.Content>
-      <p className="item" style={setupStyle}>Objective:</p>
-      <p className="item">{BASIC}</p>
-      <p className="item" style={setupStyle}>Setup Steps:</p>
-      <p className="item">{SETUP_ZERO}</p>
-      <p className="item">{SETUP_ONE}</p>
-      <p className="item">{SETUP_TWO}</p>
-      <p className="item">{SETUP_THREE}</p>
-      <p className="item" style={setupStyle}>Playing the Game:</p>
-      <p className="item">{SETUP_FOUR}</p>
-      <p className="item" style={setupStyle}>Scoring the round:</p>
-      <p className="item">{SETUP_SIX}</p>
-    </Modal.Content>
-  </Modal>
+  null
+  // <Modal
+  //   trigger={<Icon name="info circle" />}
+  //   basic
+  //   size='large'
+  //   closeIcon
+  //   dimmer
+  // >
+  //   <Modal.Content>
+  //     <p className="item" style={setupStyle}>Objective:</p>
+  //     <p className="item">{BASIC}</p>
+  //     <p className="item" style={setupStyle}>Setup Steps:</p>
+  //     <p className="item">{SETUP_ZERO}</p>
+  //     <p className="item">{SETUP_ONE}</p>
+  //     <p className="item">{SETUP_TWO}</p>
+  //     <p className="item">{SETUP_THREE}</p>
+  //     <p className="item" style={setupStyle}>Playing the Game:</p>
+  //     <p className="item">{SETUP_FOUR}</p>
+  //     <p className="item" style={setupStyle}>Scoring the round:</p>
+  //     <p className="item">{SETUP_SIX}</p>
+  //   </Modal.Content>
+  // </Modal>
 )
 
 export default Instructions

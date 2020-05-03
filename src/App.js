@@ -5,68 +5,73 @@ import {
   Route
 } from "react-router-dom";
 import Home from './home/Home';
-import ChatStart from './chat/ChatStart';
-import Color from './color/Color';
+// import ChatStart from './chat/ChatStart';
+// import Color from './color/Color';
+// import BBall from './basketball/BBall';
 import ComingSoon from './soon/comingSoon';
 import Scattergories from './scattergories/Scattergories';
-import TopLevel from './TopLevel';
+import TopLevel from './toplevel/TopLevel';
+import Layout from './layout';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faComment, faPalette, faHome, faBrain, faRandom, faBasketballBall
+} from '@fortawesome/free-solid-svg-icons';
 
+library.add(faComment, faPalette, faHome, faBrain, faRandom, faBasketballBall);
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mobile: window.innerWidth <= 760
-    }
+  componentWillMount() {
+    document.body.style.margin = "0px";
   }
-  
-  componentDidMount() {
-    window.addEventListener("resize", this.resize.bind(this));
-    this.resize();
-  }
-  
-  resize() {
-    this.setState({mobile: window.innerWidth <= 760});
-  }
+
   render () {
-    const { mobile } = this.state;
     return (
-      <Router>
-        <Switch>
+      <Layout>
+        <Router>
+          <Switch>
           <Route
-            path="/chat"
-            render={(props) => (
-              <TopLevel {...props} mobile={mobile}>
-                {<ComingSoon {...props} mobile={mobile}/>}
-              </TopLevel>
-            )}
-          />
-          <Route
-            path="/color"
-            render={(props) => (
-              <TopLevel {...props} mobile={mobile}>
-                {<ComingSoon {...props} mobile={mobile}/>}
-              </TopLevel>
-            )}
-          />
-          <Route
-            path="/scattergories"
-            render={(props) => (
-              <TopLevel {...props} mobile={mobile}>
-                {<Scattergories {...props} mobile={mobile}/>}
-              </TopLevel>
-            )}
-          />
-          <Route
-            path="/"
-            render={(props) => (
-              <TopLevel {...props} mobile={mobile}>
-                {<Home {...props} mobile={mobile}/>}
-              </TopLevel>
-            )}
-          />
-        </Switch>
-      </Router>
+              path="/basketball"
+              render={(props) => (
+                <TopLevel {...props}>
+                  {<ComingSoon {...props}/>}
+                </TopLevel>
+              )}
+            />
+            <Route
+              path="/chat"
+              render={(props) => (
+                <TopLevel {...props}>
+                  {<ComingSoon {...props}/>}
+                </TopLevel>
+              )}
+            />
+            <Route
+              path="/color"
+              render={(props) => (
+                <TopLevel {...props}>
+                  {<ComingSoon {...props}/>}
+                </TopLevel>
+              )}
+            />
+            <Route
+              path="/scattergories"
+              render={(props) => (
+                <TopLevel {...props}>
+                  {<Scattergories {...props}/>}
+                </TopLevel>
+              )}
+            />
+            <Route
+              path="/"
+              render={(props) => (
+                <TopLevel {...props}>
+                  {<Home {...props}/>}
+                </TopLevel>
+              )}
+            />
+          </Switch>
+        </Router>
+      </Layout>
     );
   }
 }

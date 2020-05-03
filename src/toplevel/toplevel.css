@@ -1,0 +1,57 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+  margin: 0px;  /*removes default style*/
+  display: flex;  /*enables flex content for its children*/
+  box-sizing: border-box;
+  height: 100%;
+  align-items: normal;
+  padding-top: 20px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.content {
+  flex-grow: 4;
+  overflow: auto;
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 599px){
+  .app {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media screen and (min-width: 600px){
+  .app {
+    flex-direction: row;
+    align-items: normal;
+  }
+}
+
+.menu {
+  display: flex;
+}
+
+@media screen and (min-width: 320px) and (max-width: 599px){
+  .menu {
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 10px
+  }
+}
+
+@media screen and (min-width: 600px){
+  .menu {
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 50vh;
+    padding-left: 10px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    left: 20px
+  }
+}
