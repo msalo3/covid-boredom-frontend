@@ -1,4 +1,5 @@
 import React from "react"
+import Bouncing from './Bouncing';
 
 import './bball.css';
 
@@ -6,23 +7,12 @@ class BBall extends React.Component {
   state = {
   };
 
-  getData = async () => {
-    // const data = await nbapi.getColors(hexColor);
-  }
-
-  buttonOrApiRequest = () => {
-    return (
-      <button onClick={() => this.getData()}>
-        Play the Color Game
-      </button>
-    );
-  }
-
   render() {
     return (
-      <div>
-        <h1>NBA</h1>
-        {this.buttonOrApiRequest()}
+      <div className="bball-container">
+        <h1 className="header">Basketball stuff coming soon</h1>
+        <div className="bounce-container" />
+        <Bouncing />
       </div>
     );
   }

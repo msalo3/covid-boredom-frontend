@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MenuButton from './MenuButton';
+import Toggle from './Toggle';
 
 import './toplevel.css';
 
@@ -37,12 +38,20 @@ class TopLevel extends React.Component {
     return (
       <div className="app">
         <div className="menu">
-          {this.mapMenuItems(activeItem)}
+          <div className="menu-top">
+            {this.mapMenuItems(activeItem)}
+          </div>
+          <div className="color-toggle">
+            <Toggle
+              toggleTheme={this.props.toggleTheme}
+              isChecked={this.props.isChecked}
+            />
+          </div>
         </div>
         <div className="content">
           {this.props.children}
         </div>
-      </div>            
+      </div>
     );
   }
 }

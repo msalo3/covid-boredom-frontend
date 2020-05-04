@@ -7,10 +7,9 @@ import {
 import Home from './home/Home';
 // import ChatStart from './chat/ChatStart';
 // import Color from './color/Color';
-// import BBall from './basketball/BBall';
+import BBall from './basketball/BBall';
 import ComingSoon from './soon/comingSoon';
 import Scattergories from './scattergories/Scattergories';
-import TopLevel from './toplevel/TopLevel';
 import Layout from './layout';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -26,52 +25,50 @@ class App extends React.Component {
 
   render () {
     return (
-      <Layout>
         <Router>
           <Switch>
           <Route
               path="/basketball"
               render={(props) => (
-                <TopLevel {...props}>
+                <Layout {...props}>
                   {<ComingSoon {...props}/>}
-                </TopLevel>
+                </Layout>
               )}
             />
             <Route
               path="/chat"
               render={(props) => (
-                <TopLevel {...props}>
+                <Layout {...props}>
                   {<ComingSoon {...props}/>}
-                </TopLevel>
+                </Layout>
               )}
             />
             <Route
               path="/color"
               render={(props) => (
-                <TopLevel {...props}>
+                <Layout {...props}>
                   {<ComingSoon {...props}/>}
-                </TopLevel>
+                </Layout>
               )}
             />
             <Route
               path="/scattergories"
               render={(props) => (
-                <TopLevel {...props}>
+                <Layout {...props}>
                   {<Scattergories {...props}/>}
-                </TopLevel>
+                </Layout>
               )}
             />
             <Route
               path="/"
               render={(props) => (
-                <TopLevel {...props}>
+                <Layout {...props}>
                   {<Home {...props}/>}
-                </TopLevel>
+                </Layout>
               )}
             />
           </Switch>
         </Router>
-      </Layout>
     );
   }
 }

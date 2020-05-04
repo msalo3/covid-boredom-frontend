@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Footer from './footer/Footer';
-import FooterContent from './footer/FooterContent';
+import TopLevel from './toplevel/TopLevel';
 
 import './layout.css';
 
@@ -9,12 +8,13 @@ const lightTheme = {
   '--color-text': '#282c34',
   '--color-primary': '#f38181',
   '--color-secondary': '#ff5722',
-  '--color-hover-bg': '#eaffd0',
+  '--color-hover-bg': '#fce38a',
   '--color-hover-border': '#282c34',
-  '--color-btn-selected': '#81F3F3',
-  '--color-qmark': '#3da9fc',
+  '--color-btn-selected': '#fce38a',
+  '--color-qmark': '#282c34',
   '--color-letter-spin': '#3c5d74',
-  '--color-footer-bg': '#f8f3eb'
+  '--color-footer-bg': '#f8f3eb',
+  '--color-redacted': '#fce38a'
 };
 const darkTheme = {
   '--color-bg': '#282c34',
@@ -26,10 +26,11 @@ const darkTheme = {
   '--color-btn-selected': '#77dd91',
   '--color-qmark': '#3da9fc',
   '--color-letter-spin': '#3c5d74',
-  '--color-footer-bg': '#282c34'
+  '--color-footer-bg': '#282c34',
+  '--color-redacted': '#000'
 };
 
-export default function Layout({ children }) {
+export default function Layout(props) {
   const [currentMode, setCurrentMode] = useState('light');
   const [isChecked, setIsChecked] = useState(false);
   
@@ -57,14 +58,12 @@ export default function Layout({ children }) {
   };
 
   return (
-    <div className="site">
-      {children}
-      <Footer>
-        <FooterContent
-          toggleTheme={toggleTheme}
-          isChecked={isChecked}
-        />
-      </Footer>
-    </div>
+    <TopLevel
+      {...props}
+      toggleTheme={toggleTheme}
+      isChecked={isChecked}
+    >
+      {props.children}
+    </TopLevel>
   );
 }
