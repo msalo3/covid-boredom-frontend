@@ -1,14 +1,14 @@
 import React from "react"
 
 class ColorGame extends React.Component {
-  state = {};
+  state = {}
 
   render() {
     return (
       <div>
         <h1>Color Game</h1>
       </div>
-    );
+    )
   }
 }
 

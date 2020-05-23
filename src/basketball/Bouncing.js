@@ -1,49 +1,37 @@
 import React from "react"
 
-import './bball.css';
+import "./bball.css"
 
 class BBall extends React.Component {
   render() {
     return (
-      <QuadBounce
-        duration={1150}
-        start={0}
-        end={160}
-      >
-        { value => <Ball y={value} /> }
+      <QuadBounce duration={1150} start={0} end={160}>
+        {(value) => <Ball y={value} />}
       </QuadBounce>
-    );
+    )
   }
 }
 
 export default BBall
 
 const getPosition = (elapsedTime, h, k) => {
-  const a = (4 * k) / Math.pow(h * 2, 2); // coefficient: -.000483932
-  const ypos = a * Math.pow((((elapsedTime + h) % (h * 2)) - h), 2);
+  const a = (4 * k) / Math.pow(h * 2, 2) // coefficient: -.000483932
+  const ypos = a * Math.pow(((elapsedTime + h) % (h * 2)) - h, 2)
 
-  return ypos;
-};
-
-// default ball style, CSS in JS
-const style = {
-  display: 'block',
-  position: 'absolute',
-  width: 50,
-  height: 50,
-  borderRadius: '50%',
-  backgroundColor: '#FA8320',
-};
+  return ypos
+}
 
 // renders a Ball at a certain height
 const Ball = ({ y }) => (
-  <div
-    style={{
-      ...style,
-      top: y,
-    }}
-  />
-);
+  <div class="ball" style={{ top: y + 100 }}>
+    <div className="stripes">
+      <div className="stroke-one" />
+      <div className="stroke-two" />
+      <div className="stroke-three" />
+      <div className="stroke-four" />
+    </div>
+  </div>
+)
 
 class QuadBounce extends React.Component {
   state = {
@@ -51,32 +39,26 @@ class QuadBounce extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({ interval: setInterval(this.updateValue, 20) });
+    this.setState({ interval: setInterval(this.updateValue, 20) })
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.interval);
+    clearInterval(this.state.interval)
   }
 
   updateValue = () => {
     const {
-      props: {
-        duration,
-        start,
-        end,
-      },
-      state: {
-        beginning,
-      },
-    } = this;
+      props: { duration, start, end },
+      state: { beginning },
+    } = this
 
-    const time = Date.now() - beginning;
-    const value = start + getPosition(time, duration / 2, end - start);
-    this.setState({ value });
-  };
+    const time = Date.now() - beginning
+    const value = start + getPosition(time, duration / 2, end - start)
+    this.setState({ value })
+  }
 
   render() {
-    const renderedChildren = this.props.children(this.state.value);
-    return renderedChildren && React.Children.only(renderedChildren);
+    const renderedChildren = this.props.children(this.state.value)
+    return renderedChildren && React.Children.only(renderedChildren)
   }
 }

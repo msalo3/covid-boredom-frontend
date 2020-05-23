@@ -1,9 +1,8 @@
 :root {
   --color-bg: #282c34;
   --color-text: #ffffff;
-  --color-primary: #555;
-  --color-secondary: #0c969b;
-  --color-hover-bg: #3c5d74;
+  --color-btn-bg: #555;
+  --color-hover-btn-bg: #3c5d74;
   --color-hover-border: #1b1f2b;
 }
 
@@ -13,4 +12,10 @@ body {
   color: #ffffff;
   color: var(--color-text);
   transition: background 0.8s, color 0.8s;
+}
+
+.header {
+  font-size: 40px;
+  font-weight: 20;
+  text-align: center;
 }

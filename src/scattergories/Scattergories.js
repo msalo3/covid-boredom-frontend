@@ -1,12 +1,11 @@
 import React from "react"
-import List from './List';
-import Timer from './timer/Timer';
-import TimerInput from './timer/TimerInput';
-import LetterDie from './letter-die/LetterDie'
-import Instructions from './Instructions';
+import List from "./List"
+import Timer from "./timer/Timer"
+import TimerInput from "./timer/TimerInput"
+import LetterDie from "./letter-die/LetterDie"
+import Instructions from "./Instructions"
 
-import './scattergories.css';
-
+import "./scattergories.css"
 
 const ScatHead = () => (
   <h2 className="header">
@@ -15,52 +14,56 @@ const ScatHead = () => (
       <Instructions />
     </sup>
   </h2>
-);
+)
 
 class Scattergories extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       minutes: 3,
       timeIsSet: false,
-      timerIsCounting: false
-    };
+      timerIsCounting: false,
+    }
   }
 
   timerOrInput = () => {
-    const { timeIsSet, minutes, timerIsCounting } = this.state;
+    const { timeIsSet, minutes, timerIsCounting } = this.state
     if (timeIsSet) {
       return (
         <Timer
           seconds={minutes * 60}
           onClick={() => this.setState({ timeIsSet: false })}
-          timerToggled={() => this.setState({ timerIsCounting: !timerIsCounting })}
+          timerToggled={() =>
+            this.setState({ timerIsCounting: !timerIsCounting })
+          }
         />
-      );
+      )
     }
     return (
       <TimerInput
-        setMinutes={(value) => this.setState({ minutes: value, timeIsSet: true })}
+        setMinutes={(value) =>
+          this.setState({ minutes: value, timeIsSet: true })
+        }
         timeIsSet={timeIsSet}
         minutes={minutes}
       />
-    );
+    )
   }
 
   render() {
-    const {timerIsCounting } = this.state;
+    const { timerIsCounting } = this.state
     return (
       <div>
         <ScatHead />
         <div className="scat-content">
-          <List timerIsCounting={timerIsCounting}/>
+          <List timerIsCounting={timerIsCounting} />
           <div className="config-content">
             {this.timerOrInput()}
-            <LetterDie timerIsCounting={timerIsCounting} s/>
+            <LetterDie timerIsCounting={timerIsCounting} s />
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 

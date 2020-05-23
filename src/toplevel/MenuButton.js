@@ -1,13 +1,13 @@
-import React from "react";
+import React from "react"
 
-import './menubutton.css';
+import "./menubutton.css"
 
-function MenuButton ({ activeItem, text, children }) {
+function MenuButton({ activeItem, text, children }) {
   return (
-    <div className='menu-icon'>
+    <div className={`menu-icon ${activeItem ? "selected-menu-icon" : ""}`}>
       {children}
     </div>
-  );
+  )
 }
 
-export default MenuButton;
+export default MenuButton

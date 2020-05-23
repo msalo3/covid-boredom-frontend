@@ -1,5 +1,37 @@
-.header {
-  font-size: 40px;
-  font-weight: 20;
-  text-align: center;
+.home-content {
+  flex: 1;
+  padding-left: 60px;
+  padding-right: 60px;
+  margin-bottom: 100px;
 }
+
+.inner-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+@media screen and (min-width: 320px) and (max-width: 675px){
+  .home-content {
+  }
+}
+
+@media screen and (min-width: 676px){
+  .home-content {
+  }
+  .card-col {
+    padding: 50vh 25vw 10vh 25vw;
+  }
+
+  .card-left {
+    padding: 40vh 45vw 10vh 15vw;
+    min-width: 100px;
+  }
+
+  .card-right {
+    padding: 40vh 20vw 10vh 40vw;
+    min-width: 100px;
+  }
+}
+

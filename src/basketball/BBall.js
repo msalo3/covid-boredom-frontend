@@ -1,20 +1,18 @@
 import React from "react"
-import Bouncing from './Bouncing';
+import Bouncing from "./Bouncing"
 
-import './bball.css';
+import "./bball.css"
 
 class BBall extends React.Component {
-  state = {
-  };
+  state = {}
 
   render() {
     return (
-      <div className="bball-container">
-        <h1 className="header">Basketball stuff coming soon</h1>
-        <div className="bounce-container" />
+      <div className="header-container">
+        <div className="name-style">Marc Sal</div>
         <Bouncing />
       </div>
-    );
+    )
   }
 }
 
