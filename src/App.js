@@ -45,7 +45,7 @@ class App extends React.Component {
           <Route
             path="/basketball"
             render={(props) => (
-              <Layout {...props}>{<BBall {...props} />}</Layout>
+              <Layout {...props}>{<ComingSoon {...props} />}</Layout>
             )}
           />
           <Route
