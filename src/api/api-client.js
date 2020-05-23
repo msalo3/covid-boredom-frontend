@@ -23,6 +23,7 @@ const apiClient = {
         return response.data.id
       })
       .catch((err) => console.log(err)),
+
   getChats: () =>
     instance
       .get("/chats")
@@ -36,9 +37,34 @@ const apiClient = {
         console.log(err)
         console.log(process.env)
       }),
+
   postMessage: (data) =>
     instance
       .post("/message", data)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err)),
+
+  getNbaPlayersByLetter: (letter) =>
+    instance
+      .get(`/nba/players_by_letter/${letter}`)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err)),
+
+  getNbaPlayersByLink: (link) =>
+    instance
+      .get(`/nba/players_by_link?link=${link}`)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err)),
+
+  getNbaNicknamesById: (id) =>
+    instance
+      .get(`/nba/nicknames?id=${id}`)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err)),
+
+  getNbaNicknamesByName: (name) =>
+    instance
+      .get(`/nba/nicknames?name=${name}`)
       .then((response) => console.log(response))
       .catch((err) => console.log(err)),
 }
