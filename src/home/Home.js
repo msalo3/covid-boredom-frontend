@@ -43,10 +43,10 @@ class Home extends React.Component {
         <BBall />
         <div className="home-content">{cards()}</div>
         <HomeFooter>
-          <FontAwesomeIcon icon={["fab", "github"]} size="2x" />
+          {/* <FontAwesomeIcon icon={["fab", "github"]} size="2x" />
           <FontAwesomeIcon icon={["fab", "linkedin"]} />
           <FontAwesomeIcon icon="envelope" />
-          <FontAwesomeIcon icon="laptop" />
+          <FontAwesomeIcon icon="laptop" /> */}
         </HomeFooter>
       </div>
     )
