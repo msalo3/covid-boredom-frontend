@@ -1,4 +1,5 @@
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import apiClient from "../../api/api-client"
 import Loader from "../../common/Loader"
 import NbaCard from "./NbaCard"
@@ -53,19 +54,26 @@ class NbaDetail extends React.Component {
   renderImages = () => {
     const { images } = this.state
     if (images.length === 0) return null
-    return images.map((item, i) => <img src={item} alt={`player-img-${i}`} />)
+    return images.map((item, i) => (
+      <div className="nba-img-holder">
+        <img src={item} alt={`player-img-${i}`} className="nba-img" />
+      </div>
+    ))
   }
 
   renderDetailsOrLoader = () => {
-    const { player, loading } = this.state
-    if (loading) return <Loader />
+    const { loading } = this.state
+    if (loading)
+      return (
+        <div className="nba-detail-loader-container">
+          <Loader />
+        </div>
+      )
 
     return (
-      <div>
-        <button onClick={() => this.props.backClicked()}>Go Back</button>
-        <div>{player.name}</div>
-        {this.renderImages()}
-        {this.renderDetails()}
+      <div className="nba-info-container">
+        <div className="nba-img-container">{this.renderImages()}</div>
+        <div className="nba-card-container">{this.renderDetails()}</div>
       </div>
     )
   }
@@ -76,8 +84,19 @@ class NbaDetail extends React.Component {
   }
 
   render() {
+    const { player } = this.state
     return (
       <div className="nba-details-container">
+        <div className="nba-top-row">
+          <FontAwesomeIcon
+            icon="chevron-left"
+            size="2x"
+            onClick={() => this.props.backClicked()}
+            className="nba-back-btn"
+          />
+          <div className="header nba-name">{player.name}</div>
+          <div />
+        </div>
         {this.renderDetailsOrLoader()}
       </div>
     )

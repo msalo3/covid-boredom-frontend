@@ -32,9 +32,13 @@ class NbaSearch extends React.Component {
   }
 
   getNbaPlayers = async (name) => {
-    let players = await apiClient.getNbaPlayersByLetter(name)
+    let players = await apiClient.getNbaPlayersByLetter(name.toLowerCase())
     if (players === undefined) players = []
-    this.setState({ autocompleteOptions: players, loading: false })
+    this.setState({
+      autocompleteOptions: players,
+      loading: false,
+      lastLetterRetrieved: name,
+    })
   }
 
   renderAutoComplete = () => {
@@ -43,7 +47,11 @@ class NbaSearch extends React.Component {
     if (autocompleteOptions.length === 0) return null
     const options = filterOptions(autocompleteOptions, playerName)
     return options.slice(0, 10).map((item, i) => (
-      <button key={item} onClick={() => this.props.playerClicked(item)}>
+      <button
+        key={item}
+        onClick={() => this.props.playerClicked(item)}
+        className="nba-options-btn"
+      >
         {item.name}
       </button>
     ))
@@ -54,15 +62,23 @@ class NbaSearch extends React.Component {
       <div className="nba-api-container">
         <form>
           <div>
-            <label>Search by Last Name</label>
+            <div className="header nba-search-header">Search by Last Name</div>
           </div>
           <input
+            disabled={this.state.loading}
             name="NBA Player"
             value={this.state.playerName}
             onChange={(e) => this.handleChange(e.target.value)}
           />
         </form>
         {this.renderAutoComplete()}
+        <div className="nba-search-instructions">
+          The first letter will get all NBA players whose last name begins with
+          that letter.
+        </div>
+        <div className="nba-search-instructions">
+          Then you can hone down the list to find the player.
+        </div>
       </div>
     )
   }

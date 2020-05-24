@@ -18,6 +18,7 @@ import {
   faEnvelope,
   faLaptop,
   faIdBadge,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons"
 import { fab } from "@fortawesome/free-brands-svg-icons"
 
@@ -31,7 +32,8 @@ library.add(
   fab,
   faEnvelope,
   faLaptop,
-  faIdBadge
+  faIdBadge,
+  faChevronLeft
 )
 
 class App extends React.Component {

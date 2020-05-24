@@ -12,11 +12,20 @@ class NbaCard extends React.Component {
     for (const [key, value] of Object.entries(stats)) {
       if (key !== "season") {
         values.push(
-          <div>
-            <div>{key}</div>
-            <div>{value}</div>
+          <div className="stats-text-container">
+            <div className="stats-text-key">{key}:</div>
+            <div className="stats-text-value">
+              &nbsp;
+              {` ${value}` || " N/A"}
+            </div>
           </div>
         )
+      }
+    }
+    const toAdd = values.length % 3
+    if (toAdd !== 0) {
+      for (let i = 0; i < toAdd; i++) {
+        values.push(<div className="stats-text-container" />)
       }
     }
     return values
@@ -26,11 +35,16 @@ class NbaCard extends React.Component {
     const { stats } = this.props
     const { expanded } = this.state
     return (
-      <div>
-        <button onClick={() => this.setState({ expanded: !expanded })}>
+      <div className="nba-card-wrapper">
+        <button
+          className="nba-card-btn"
+          onClick={() => this.setState({ expanded: !expanded })}
+        >
           Season: {stats.season}
         </button>
-        {expanded && this.renderSections()}
+        <div className="nba-expanded-container">
+          {expanded && this.renderSections()}
+        </div>
       </div>
     )
   }

@@ -1,0 +1,49 @@
+.stats-text-container {
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 1px;
+  width: 30%;
+  text-align: left;
+}
+
+.nba-expanded-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.stats-text-key {
+  text-transform: capitalize;
+}
+
+.stats-text-value {
+}
+
+.nba-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 60vw;
+  padding: 5px
+}
+
+.nba-card-btn {
+  height: 8vh;
+  min-width: 100%;
+  font-size: 20px;
+  letter-spacing: 2px;
+  border-radius: 8px;
+  background-color: var(--color-nba-option);
+  color: var(--color-text);
+  outline: none
+}
+
+.nba-card-btn:hover {
+  background-color: var(--color-nba-option-hover);
+}
