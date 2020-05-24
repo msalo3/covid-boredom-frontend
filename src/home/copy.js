@@ -1,14 +1,32 @@
-export const TEXTA =
-  "Halvah jelly beans cookie lollipop lollipop sweet lollipop wafer jujubes. Tiramisu candy cheesecake I love jelly beans danish sesame snaps macaroon. Bonbon I love pudding cheesecake biscuit macaroon cake cupcake. Chocolate bar I love cotton candy danish chocolate. Croissant pie donut I love topping sweet roll dessert sugar plum danish. Ice cream cupcake macaroon lemon drops croissant jelly liquorice muffin. Sweet roll pastry chocolate cake donut macaroon. Pudding sweet dessert pastry chupa chups chocolate cake gummi bears. Dragée tiramisu tootsie roll donut chupa chups I love biscuit gummies apple pie. Liquorice gummi bears I love sugar plum sugar plum icing pie biscuit pastry. Lemon drops sweet I love tootsie roll fruitcake I love halvah lollipop. Macaroon chocolate bar sesame snaps chocolate cake."
+export const HOME_TEXTA = [
+  "Being from Pittsburgh, I was raised in the era of DragonBall Z, AOL CD infestations, and the nightmare inducing sound of the internet being born through dial up.",
+  "These things may or may not have fueled my desire to work in software development and after a necessary psychology degree and 10 years of bartending experience, I took a shot on a kick-ass bootcamp.",
+  "The rest is history... unless it hasn't happened yet, then it's not history... yet.",
+]
 
-export const TEXTB =
-  "Dragée oat cake sugar plum chocolate I love tiramisu. Cotton candy jelly beans lollipop pie I love. Oat cake dessert toffee jelly sesame snaps. Bonbon sesame snaps cookie dessert sweet roll sweet cake topping pudding. I love I love liquorice dessert ice cream donut I love muffin chocolate bar. Cotton candy gingerbread gummi bears biscuit. Jelly bear claw halvah cake gummi bears. Cheesecake jujubes marshmallow soufflé macaroon I love pastry. I love bear claw gingerbread tart pastry. Apple pie apple pie candy canes I love candy canes chocolate bar bonbon sweet roll wafer. Bonbon sesame snaps biscuit tootsie roll fruitcake pastry I love I love gingerbread. Icing jelly-o bonbon bear claw."
+export const HOME_TEXTB = [
+  "I love cooking and having some adult beverages with friends.",
+  "I'm a basketball fanatic and there is little I would not do to have a team here in Pittsburgh.",
+  "I also enjoy reading sci-fi and fantasy novels, novellas, short stories, excerpts, etc. If you need any more details, please get in touch with me ASAP.",
+  "I'm also into time.",
+  "I know that sounds like a strange statement, but it's true.",
+  "Having it is nice. Thinking about it is great. Understanding it is even better.",
+  "I love the nuances and complexities you can get into with time and our (lack of) understanding about it.",
+]
 
-export const TEXTC =
-  "Croissant soufflé oat cake donut. Lemon drops croissant jelly beans dragée bonbon pastry I love dessert. I love gummies wafer. Cheesecake gummies cake. Liquorice marshmallow sweet roll. Sesame snaps toffee dragée lemon drops tart halvah sesame snaps. Chocolate cake soufflé pudding. Bonbon carrot cake cookie. Sugar plum marshmallow cookie I love. Candy cotton candy jelly beans. Lemon drops chupa chups cake I love fruitcake I love I love topping. Tootsie roll cake jelly beans gummi bears. Bonbon tootsie roll candy canes chocolate cake soufflé apple pie jelly muffin biscuit. Chupa chups carrot cake I love pastry."
+export const HOME_TEXTC = [
+  "I've got a bad ass girlfriend who will kick your ass...",
+  "Well, no... she won't.",
+  "She's super sweet and gets along with everyone.",
+  "We have 2 stinky dogs/rats.",
+  "They're chihuahua/jack russel mixes.",
+  "Like every dog owner, we love them to death (though if you're the person with the means to get that Pgh NBA team... I have 2 sweet pups for bartering)",
+]
 
-export const TEXTD =
-  "Wafer macaroon I love lollipop I love chocolate bar. Gummies halvah donut sweet roll soufflé macaroon ice cream cheesecake jelly-o. Jujubes muffin topping. I love candy canes pastry cookie I love I love. Powder ice cream cake chocolate cake biscuit. Wafer caramels sugar plum. Cake marzipan donut. Candy canes sesame snaps gummies croissant I love. Powder biscuit chocolate cake bonbon marzipan ice cream. Bear claw bear claw apple pie lemon drops cookie I love bonbon cake muffin. Oat cake chocolate cake topping wafer gummies. Gummies gingerbread gingerbread danish wafer danish cookie. Chupa chups marzipan gingerbread croissant I love jelly beans soufflé. Candy oat cake cheesecake toffee apple pie caramels sweet roll."
-
-export const TEXTE =
-  "I love I love bonbon macaroon fruitcake. Candy tootsie roll tiramisu tootsie roll I love cupcake pie marshmallow. Soufflé chocolate I love fruitcake lemon drops I love topping chocolate cake. Gummies ice cream halvah wafer candy canes donut ice cream. Muffin croissant I love oat cake topping wafer. Sesame snaps sesame snaps soufflé gummies apple pie. I love I love donut pie muffin cake I love. Marshmallow brownie I love candy. I love fruitcake marshmallow cake croissant I love. Chupa chups liquorice candy cookie sweet candy canes I love. Lollipop gummi bears jelly-o icing marshmallow jelly beans jelly-o toffee. Fruitcake gummies cupcake I love. Marshmallow ice cream chocolate cake."
+export const HOME_TEXTD = [
+  "Shout out to Academy PGH, the web developer bootcamp I attended.",
+  'While we learned Ruby, Ruby on Rails, C#, MVC, and HTML/CCS/JS the real education was "learning how to learn".',
+  "Currently, I work for a company called NuRelm.",
+  "Our team is small and awesome like the Tardigrade.",
+  "We deal in a variety of areas in tech including app development, back-office integrations, and web work.",
+]

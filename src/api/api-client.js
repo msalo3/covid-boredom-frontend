@@ -47,25 +47,31 @@ const apiClient = {
   getNbaPlayersByLetter: (letter) =>
     instance
       .get(`/nba/players_by_letter/${letter}`)
-      .then((response) => console.log(response))
+      .then((response) => response.data)
       .catch((err) => console.log(err)),
 
-  getNbaPlayersByLink: (link) =>
+  getNbaPlayerByLink: (link) =>
     instance
-      .get(`/nba/players_by_link?link=${link}`)
-      .then((response) => console.log(response))
+      .get(`/nba/player_by_link?link=${link}`)
+      .then((response) => response.data)
       .catch((err) => console.log(err)),
 
   getNbaNicknamesById: (id) =>
     instance
       .get(`/nba/nicknames?id=${id}`)
-      .then((response) => console.log(response))
+      .then((response) => response.data)
       .catch((err) => console.log(err)),
 
   getNbaNicknamesByName: (name) =>
     instance
       .get(`/nba/nicknames?name=${name}`)
-      .then((response) => console.log(response))
+      .then((response) => response.data)
+      .catch((err) => console.log(err)),
+
+  getNbaImage: (name) =>
+    instance
+      .get(`/nba/player_image?name=${name}`)
+      .then((response) => response.data)
       .catch((err) => console.log(err)),
 }
 

@@ -1,10 +1,9 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Home from "./home/Home"
-import ChatStart from "./chat/ChatStart"
+// import ChatStart from "./chat/ChatStart"
 // import Color from './color/Color';
-import BBall from "./basketball/BBall"
-import Marc from "./home/Marc"
+import Nba from "./basketball/Nba"
 import ComingSoon from "./soon/comingSoon"
 import Scattergories from "./scattergories/Scattergories"
 import Layout from "./layout"
@@ -18,6 +17,7 @@ import {
   faBasketballBall,
   faEnvelope,
   faLaptop,
+  faIdBadge,
 } from "@fortawesome/free-solid-svg-icons"
 import { fab } from "@fortawesome/free-brands-svg-icons"
 
@@ -30,7 +30,8 @@ library.add(
   faBasketballBall,
   fab,
   faEnvelope,
-  faLaptop
+  faLaptop,
+  faIdBadge
 )
 
 class App extends React.Component {
@@ -44,9 +45,7 @@ class App extends React.Component {
         <Switch>
           <Route
             path="/basketball"
-            render={(props) => (
-              <Layout {...props}>{<BBall {...props} />}</Layout>
-            )}
+            render={(props) => <Layout {...props}>{<Nba {...props} />}</Layout>}
           />
           <Route
             path="/chat"
@@ -69,7 +68,7 @@ class App extends React.Component {
           <Route
             path="/"
             render={(props) => (
-              <Layout {...props}>{<ComingSoon {...props} />}</Layout>
+              <Layout {...props}>{<Home {...props} />}</Layout>
             )}
           />
         </Switch>

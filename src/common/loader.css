@@ -1,0 +1,19 @@
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loader {
+  margin-top: 16px;
+  border-top: 10px solid var(--color-btn-bg);
+  border-right: 10px solid var(--color-loader-bg);
+  border-bottom: 10px solid var(--color-loader-bg);
+  border-left: 10px solid var(--color-loader-bg);
+  animation: spinner 0.9s linear infinite;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+}

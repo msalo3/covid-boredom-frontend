@@ -1,11 +1,11 @@
 .card {
   padding: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 10px 18px 0 rgba(0,0,0,0.3);
   transition: 0.3s;
   border-radius: 5px;
-  background-color: var(--color-bg);
+  background-color: var(--color-off-bg);
 }
 
 .card:hover {
-  box-shadow: 0 10px 18px 0 rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 5px #555 inset;
 }

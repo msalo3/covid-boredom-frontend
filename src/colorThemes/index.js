@@ -2,7 +2,8 @@ export const lightTheme = (randomize = false) => {
   if (randomize) {
   }
   return {
-    "--color-bg": "#EFFBFF",
+    "--color-bg": "rgb(239, 251, 255)",
+    "--color-off-bg": "rgb(220, 245, 255, 0.4)",
     "--color-text": "#282c34",
     "--color-btn-bg": "#00BDFF",
     "--color-hover-btn-bg": "#97ED4E",
@@ -13,6 +14,7 @@ export const lightTheme = (randomize = false) => {
     "--color-redacted": "#97ED4E",
     "--color-menu-icon-hover": "#3c5d74",
     "--color-menu-icon-selected": "#00BDFF",
+    "--color-loader-bg": "rgba(136, 136, 136, 0.2)",
   }
 }
 
@@ -31,5 +33,6 @@ export const darkTheme = (randomize = false) => {
     "--color-letter-spin": "#34425A",
     "--color-letter-selected": "#3da9fc",
     "--color-redacted": "#000",
+    "--color-loader-bg": "rgba(136, 136, 136, 0.2)",
   }
 }
