@@ -24,8 +24,6 @@ class ChatStart extends React.Component {
   }
 
   render() {
-    const r = apiClient.getProcess()
-    console.log("running get chats", r)
     return (
       <div>
         <h1>Chat Bot</h1>

@@ -14,65 +14,59 @@ const instance = axios.create({
 })
 
 const apiClient = {
-  getProcess: () => process.env,
   createNewChat: (name) =>
     instance
       .post("/chat", name)
-      .then((response) => {
-        console.log(response)
-        return response.data.id
-      })
-      .catch((err) => console.log(err)),
+      .then((response) => response.data.id)
+      .catch((err) => logAndReturn(err, false)),
 
   getChats: () =>
     instance
       .get("/chats")
-      .then((response) => {
-        console.log("response")
-        console.log(response)
-        return response.data
-      })
-      .catch((err) => {
-        console.log("err")
-        console.log(err)
-        console.log(process.env)
-      }),
+      .then((response) => logAndReturn(response, true))
+      .catch((err) => logAndReturn(err, false)),
 
   postMessage: (data) =>
     instance
       .post("/message", data)
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err)),
+      .then((response) => logAndReturn(response, false))
+      .catch((err) => logAndReturn(err, false)),
 
   getNbaPlayersByLetter: (letter) =>
     instance
       .get(`/nba/players_by_letter/${letter}`)
-      .then((response) => response.data)
-      .catch((err) => console.log(err)),
+      .then((response) => logAndReturn(response, true))
+      .catch((err) => logAndReturn(err, false)),
 
   getNbaPlayerByLink: (link) =>
     instance
       .get(`/nba/player_by_link?link=${link}`)
-      .then((response) => response.data)
-      .catch((err) => console.log(err)),
+      .then((response) => logAndReturn(response, true))
+      .catch((err) => logAndReturn(err, false)),
 
   getNbaNicknamesById: (id) =>
     instance
       .get(`/nba/nicknames?id=${id}`)
-      .then((response) => response.data)
-      .catch((err) => console.log(err)),
+      .then((response) => logAndReturn(response, true))
+      .catch((err) => logAndReturn(err, false)),
 
   getNbaNicknamesByName: (name) =>
     instance
       .get(`/nba/nicknames?name=${name}`)
-      .then((response) => response.data)
-      .catch((err) => console.log(err)),
+      .then((response) => logAndReturn(response, true))
+      .catch((err) => logAndReturn(err, false)),
 
   getNbaImage: (name) =>
     instance
       .get(`/nba/player_image?name=${name}`)
-      .then((response) => response.data)
-      .catch((err) => console.log(err)),
+      .then((response) => logAndReturn(response, true))
+      .catch((err) => logAndReturn(err, false)),
+}
+
+const logAndReturn = (response, returnData = false) => {
+  console.log(response)
+  if (returnData) return response.data
+  return response
 }
 
 export default apiClient

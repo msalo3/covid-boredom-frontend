@@ -1,0 +1,75 @@
+.q-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.q-copy-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.q-heading {
+  font-size: 3vh;
+  padding: 20px
+}
+
+.q-teams-input {
+  height: 4vh;
+  width: 40vw;
+  font-size: 2.5vh;
+}
+
+.q-teams-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 40px
+}
+
+.q-team-card {
+  width: 25%;
+  min-height: 10vh;
+  padding: 20px;
+  box-shadow: 0 10px 18px 0 rgba(0,0,0,0.3);
+  transition: 0.3s;
+  border-radius: 5px;
+  margin: 10px;
+  background-color: var(--color-off-bg);
+  text-align: center;
+}
+
+.q-team-text {
+  text-align: center;
+  font-size: 3vh;
+  padding-top: 12%;
+}
+
+.q-card-guessed {
+  background-color: var(--color-pulse);
+}
+
+.q-reguessed {
+  box-shadow: 0 0 0 0 var(--color-pulse);
+	transform: scale(1);
+	animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 0 var(--color-pulse-one);
+	}
+
+	70% {
+		box-shadow: 0 0 0 5px var(--color-pulse-two);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 var(--color-pulse-three);
+	}
+}

@@ -4,6 +4,7 @@ import Home from "./home/Home"
 // import ChatStart from "./chat/ChatStart"
 // import Color from './color/Color';
 import Nba from "./basketball/Nba"
+import Quiz from "./quiz"
 import ComingSoon from "./soon/comingSoon"
 import Scattergories from "./scattergories/Scattergories"
 import Layout from "./layout"
@@ -19,6 +20,8 @@ import {
   faLaptop,
   faIdBadge,
   faChevronLeft,
+  faQuestionCircle,
+  faStrikethrough,
 } from "@fortawesome/free-solid-svg-icons"
 import { fab } from "@fortawesome/free-brands-svg-icons"
 
@@ -33,11 +36,13 @@ library.add(
   faEnvelope,
   faLaptop,
   faIdBadge,
-  faChevronLeft
+  faChevronLeft,
+  faQuestionCircle,
+  faStrikethrough
 )
 
 class App extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     document.body.style.margin = "0px"
   }
 
@@ -59,6 +64,12 @@ class App extends React.Component {
             path="/color"
             render={(props) => (
               <Layout {...props}>{<ComingSoon {...props} />}</Layout>
+            )}
+          />
+          <Route
+            path="/quiz"
+            render={(props) => (
+              <Layout {...props}>{<Quiz {...props} />}</Layout>
             )}
           />
           <Route

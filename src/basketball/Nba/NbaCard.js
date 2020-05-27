@@ -12,7 +12,7 @@ class NbaCard extends React.Component {
     for (const [key, value] of Object.entries(stats)) {
       if (key !== "season") {
         values.push(
-          <div className="stats-text-container">
+          <div key={key} className="stats-text-container">
             <div className="stats-text-key">{key}:</div>
             <div className="stats-text-value">
               &nbsp;

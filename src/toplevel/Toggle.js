@@ -4,9 +4,9 @@ import "./sliderstyle.css"
 
 const Toggle = ({ toggleTheme, isChecked }) => {
   return (
-    <label class="switch">
+    <label className="switch">
       <input type="checkbox" onChange={toggleTheme} value={isChecked} />
-      <span class="slider round"></span>
+      <span className="slider round"></span>
     </label>
   )
 }

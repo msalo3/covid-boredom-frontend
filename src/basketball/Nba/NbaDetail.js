@@ -25,7 +25,6 @@ class NbaDetail extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state, this.props)
     this.getDetails(this.state.player)
   }
 
@@ -34,7 +33,15 @@ class NbaDetail extends React.Component {
       apiClient.getNbaPlayerByLink(link),
       apiClient.getNbaImage(name),
     ])
-    if (details === undefined) details = []
+    if (details === undefined) {
+      details = []
+    } else {
+      details = details.perGame.map((item, i) => {
+        item.id = i
+        return item
+      })
+    }
+
     if (images === undefined) images = []
     this.setState({ details, images, loading: false })
   }
@@ -55,7 +62,7 @@ class NbaDetail extends React.Component {
     const { images } = this.state
     if (images.length === 0) return null
     return images.map((item, i) => (
-      <div className="nba-img-holder">
+      <div key={item} className="nba-img-holder">
         <img src={item} alt={`player-img-${i}`} className="nba-img" />
       </div>
     ))
@@ -80,7 +87,7 @@ class NbaDetail extends React.Component {
 
   renderDetails = () => {
     const { details } = this.state
-    return details.perGame.map((stats) => <NbaCard stats={stats} />)
+    return details.map((stats) => <NbaCard key={stats.id} stats={stats} />)
   }
 
   render() {

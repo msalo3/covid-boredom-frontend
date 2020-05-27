@@ -6,7 +6,7 @@ class BBall extends React.Component {
   render() {
     return (
       <QuadBounce duration={1150} start={0} end={160}>
-        {(value) => <Ball y={value} />}
+        {(value) => <Ball y={value || 0} />}
       </QuadBounce>
     )
   }
@@ -23,7 +23,7 @@ const getPosition = (elapsedTime, h, k) => {
 
 // renders a Ball at a certain height
 const Ball = ({ y }) => (
-  <div class="ball" style={{ top: y + 100 }}>
+  <div className="ball" style={{ top: y + 100 }}>
     <div className="stripes">
       <div className="stroke-one" />
       <div className="stroke-two" />
@@ -38,7 +38,7 @@ class QuadBounce extends React.Component {
     beginning: Date.now(),
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ interval: setInterval(this.updateValue, 20) })
   }
 

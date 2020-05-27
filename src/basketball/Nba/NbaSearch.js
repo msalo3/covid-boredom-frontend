@@ -48,7 +48,7 @@ class NbaSearch extends React.Component {
     const options = filterOptions(autocompleteOptions, playerName)
     return options.slice(0, 10).map((item, i) => (
       <button
-        key={item}
+        key={item.name}
         onClick={() => this.props.playerClicked(item)}
         className="nba-options-btn"
       >
@@ -65,6 +65,7 @@ class NbaSearch extends React.Component {
             <div className="header nba-search-header">Search by Last Name</div>
           </div>
           <input
+            className="nba-search-input"
             disabled={this.state.loading}
             name="NBA Player"
             value={this.state.playerName}

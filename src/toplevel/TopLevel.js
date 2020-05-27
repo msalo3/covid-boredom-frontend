@@ -15,10 +15,17 @@ const items = [
     icon: "basketball-ball",
     text: "Hoops API",
   },
-  { id: 2, name: "/chat", link: "/chat", icon: "comment", text: "Chat" },
-  { id: 3, name: "/color", link: "/color", icon: "palette", text: "Color" },
+  { id: 3, name: "/chat", link: "/chat", icon: "comment", text: "Chat" },
   {
     id: 4,
+    name: "/quiz",
+    link: "/quiz",
+    icon: "question-circle",
+    text: "Quiz",
+  },
+  { id: 5, name: "/color", link: "/color", icon: "palette", text: "Color" },
+  {
+    id: 6,
     name: "/scattergories",
     link: "/scattergories",
     icon: "brain",
@@ -29,7 +36,7 @@ const items = [
 class TopLevel extends React.Component {
   mapMenuItems(activeItem) {
     return items.map((item) => (
-      <Link to={item.link}>
+      <Link to={item.link} key={item.id}>
         <MenuButton text={item.text} activeItem={activeItem === item.name}>
           <FontAwesomeIcon icon={item.icon} size="2x" />
         </MenuButton>

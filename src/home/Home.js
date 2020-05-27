@@ -1,9 +1,9 @@
 import React from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Card from "../common/Card"
 import HomeFooter from "./HomeFooter"
 import BBall from "../basketball/BBall"
-import Line from "./Line"
+// import Line from "./Line"
 
 import "./home.css"
 import { HOME_TEXTA, HOME_TEXTB, HOME_TEXTC, HOME_TEXTD } from "./copy"
@@ -16,21 +16,32 @@ class Home extends React.Component {
   cardHover = (val) => {
     if (this.state.lineShown >= val) return null
     this.setState({ lineShown: val })
+    return null
   }
   render() {
     function cards() {
       const data = [
-        { icon: "id-badge", css: "card-left", text: HOME_TEXTA },
-        { icon: ["fab", "linkedin"], css: "card-right", text: HOME_TEXTB },
-        { icon: "envelope", css: "card-left", text: HOME_TEXTC },
-        { icon: "laptop", css: "card-right", text: HOME_TEXTD },
+        { id: 1, icon: "id-badge", css: "card-left", text: HOME_TEXTA },
+        {
+          id: 2,
+          icon: ["fab", "linkedin"],
+          css: "card-right",
+          text: HOME_TEXTB,
+        },
+        { id: 3, icon: "envelope", css: "card-left", text: HOME_TEXTC },
+        { id: 4, icon: "laptop", css: "card-right", text: HOME_TEXTD },
       ]
       return data.map((item, i) => (
-        <div className={item.css}>
+        <div key={item.id} className={item.css}>
           <Card>
-            <div className="inner-card" onmouseover={() => this.cardHover(i)}>
+            <div
+              className="inner-card"
+              onMouseOver={() => null && this.cardHover(i)}
+            >
               {item.text.map((t) => (
-                <div className="home-card-text">{t}</div>
+                <div key={t.length} className="home-card-text">
+                  {t}
+                </div>
               ))}
             </div>
           </Card>

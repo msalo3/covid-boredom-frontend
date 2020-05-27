@@ -19,9 +19,7 @@ class Color extends React.Component {
 
   getSomeColors = async () => {
     const hexColor = getRandomColor()
-    console.log(hexColor)
     const data = await colorApi.getColors(hexColor)
-    console.log(data)
     const chosenColor = {
       hex: data.seed.hex.value,
       rgb: [data.seed.rgb.r, data.seed.rgb.g, data.seed.rgb.b],

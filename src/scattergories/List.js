@@ -24,29 +24,29 @@ class List extends React.Component {
       )
     })
   randomizeListId = () => {
-    const randomId = Math.floor(Math.random() * (data.length - 1))
+    const randomId = Math.floor(Math.random() * (data.length - 2))
     this.setState({ listId: randomId })
   }
 
-  selectList = (timerIsCounting) => (
-    <div>
-      List Number{" "}
-      <select
-        id="lists"
-        disabled={timerIsCounting}
-        onChange={(event) => this.setState({ listId: event.target.value })}
-      >
-        {data.map((item) => (
-          <option value={item.value}>{item.value}</option>
-        ))}
-      </select>
-    </div>
-  )
+  // selectList = (timerIsCounting) => (
+  //   <div>
+  //     List Number{" "}
+  //     <select
+  //       id="lists"
+  //       disabled={timerIsCounting}
+  //       onChange={(event) => this.setState({ listId: event.target.value })}
+  //     >
+  //       {data.map((item) => (
+  //         <option value={item.value}>{item.value}</option>
+  //       ))}
+  //     </select>
+  //   </div>
+  // )
 
   render() {
     const { timerIsCounting } = this.props
     const { listId, data } = this.state
-    const list = data[listId - 1]
+    const list = data[listId]
     return (
       <div>
         <span
@@ -55,7 +55,7 @@ class List extends React.Component {
           }`}
         >
           <div>List {listId}</div>
-          <span class="tooltiptext">Randomize</span>
+          <span className="tooltiptext">Randomize</span>
           <div className="random">
             <FontAwesomeIcon
               icon="random"
