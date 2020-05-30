@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./teamNames.css"
 
 const DATA = [
-  { name: "Red Sox", league: "MLB", guessed: true, reguessed: false },
-  { name: "White Sox", league: "MLB", guessed: true, reguessed: false },
+  { name: "Red Sox", league: "MLB", guessed: false, reguessed: false },
+  { name: "White Sox", league: "MLB", guessed: false, reguessed: false },
   { name: "Heat", league: "NBA", guessed: false, reguessed: false },
-  { name: "Thunder", league: "NBA", guessed: true, reguessed: false },
-  { name: "Magic", league: "NBA", guessed: true, reguessed: false },
-  { name: "Jazz", league: "NBA", guessed: true, reguessed: false },
-  { name: "Avalanche", league: "NHL", guessed: true, reguessed: false },
-  { name: "Wild", league: "NHL", guessed: true, reguessed: false },
-  { name: "Lightning", league: "NHL", guessed: true, reguessed: false },
+  { name: "Thunder", league: "NBA", guessed: false, reguessed: false },
+  { name: "Magic", league: "NBA", guessed: false, reguessed: false },
+  { name: "Jazz", league: "NBA", guessed: false, reguessed: false },
+  { name: "Avalanche", league: "NHL", guessed: false, reguessed: false },
+  { name: "Wild", league: "NHL", guessed: false, reguessed: false },
+  { name: "Lightning", league: "NHL", guessed: false, reguessed: false },
 ]
 
 const COPY1 =
