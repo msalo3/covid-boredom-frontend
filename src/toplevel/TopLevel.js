@@ -15,7 +15,7 @@ const items = [
     icon: "basketball-ball",
     text: "Hoops API",
   },
-  { id: 3, name: "/chat", link: "/chat", icon: "comment", text: "Chat" },
+  // { id: 3, name: "/chat", link: "/chat", icon: "comment", text: "Chat" },
   {
     id: 4,
     name: "/quiz",
@@ -24,8 +24,9 @@ const items = [
     text: "Quiz",
   },
   { id: 5, name: "/color", link: "/color", icon: "palette", text: "Color" },
+  { id: 6, name: "/mom", link: "/mom", icon: "book-open", text: "Cards" },
   {
-    id: 6,
+    id: 7,
     name: "/scattergories",
     link: "/scattergories",
     icon: "brain",

@@ -50,6 +50,12 @@
   padding-top: 12%;
 }
 
+.q-teams-wontext {
+  text-align: center;
+  font-size: 6vh;
+  padding-top: 12%;
+}
+
 .q-card-guessed {
   background-color: var(--color-pulse);
 }

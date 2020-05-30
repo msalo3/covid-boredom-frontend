@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./teamNames.css"
 
 const DATA = [
-  { name: "Red Sox", league: "MLB", guessed: false, reguessed: false },
-  { name: "White Sox", league: "MLB", guessed: false, reguessed: false },
+  { name: "Red Sox", league: "MLB", guessed: true, reguessed: false },
+  { name: "White Sox", league: "MLB", guessed: true, reguessed: false },
   { name: "Heat", league: "NBA", guessed: false, reguessed: false },
-  { name: "Thunder", league: "NBA", guessed: false, reguessed: false },
-  { name: "Magic", league: "NBA", guessed: false, reguessed: false },
-  { name: "Jazz", league: "NBA", guessed: false, reguessed: false },
-  { name: "Avalanche", league: "NHL", guessed: false, reguessed: false },
-  { name: "Wild", league: "NHL", guessed: false, reguessed: false },
-  { name: "Lightning", league: "NHL", guessed: false, reguessed: false },
+  { name: "Thunder", league: "NBA", guessed: true, reguessed: false },
+  { name: "Magic", league: "NBA", guessed: true, reguessed: false },
+  { name: "Jazz", league: "NBA", guessed: true, reguessed: false },
+  { name: "Avalanche", league: "NHL", guessed: true, reguessed: false },
+  { name: "Wild", league: "NHL", guessed: true, reguessed: false },
+  { name: "Lightning", league: "NHL", guessed: true, reguessed: false },
 ]
 
 const COPY1 =
@@ -32,7 +32,7 @@ class TeamNames extends React.Component {
 
   renderGameOrWin = () => {
     if (this.state.isWon) {
-      return <div>Congrats! You Won!</div>
+      return <div className="q-teams-wontext">Congrats! You Won!</div>
     }
     return (
       <>
@@ -53,17 +53,19 @@ class TeamNames extends React.Component {
     e.preventDefault()
     const { teams, inputValue } = this.state
     let needToChangeState = 0
+    let totalTeamsGuessed = 0
 
     let reguessedIndex = null
     const newTeams = teams.map((team, i) => {
+      if (team.guessed) totalTeamsGuessed += 1
       if (team.name.toLowerCase() === inputValue.toLowerCase()) {
         if (team.guessed) {
           needToChangeState = 2
           reguessedIndex = i
         } else {
+          totalTeamsGuessed += 1
           needToChangeState = 1
         }
-
         return {
           name: team.name,
           league: team.league,
@@ -76,7 +78,12 @@ class TeamNames extends React.Component {
     if (needToChangeState === 0) {
       this.setState({ incorrect: true })
     } else {
-      this.setState({ teams: newTeams, inputValue: "", reguessedIndex })
+      this.setState({
+        teams: newTeams,
+        inputValue: "",
+        reguessedIndex,
+        isWon: totalTeamsGuessed === 9,
+      })
       if (needToChangeState === 2) {
         setTimeout(
           () => this.setState({ inputValue: "", reguessedIndex: null }),

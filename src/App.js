@@ -5,6 +5,7 @@ import Home from "./home/Home"
 // import Color from './color/Color';
 import Nba from "./basketball/Nba"
 import Quiz from "./quiz"
+import Mom from "./mom"
 import ComingSoon from "./soon/comingSoon"
 import Scattergories from "./scattergories/Scattergories"
 import Layout from "./layout"
@@ -22,6 +23,7 @@ import {
   faChevronLeft,
   faQuestionCircle,
   faStrikethrough,
+  faBookOpen,
 } from "@fortawesome/free-solid-svg-icons"
 import { fab } from "@fortawesome/free-brands-svg-icons"
 
@@ -38,7 +40,8 @@ library.add(
   faIdBadge,
   faChevronLeft,
   faQuestionCircle,
-  faStrikethrough
+  faStrikethrough,
+  faBookOpen
 )
 
 class App extends React.Component {
@@ -71,6 +74,10 @@ class App extends React.Component {
             render={(props) => (
               <Layout {...props}>{<Quiz {...props} />}</Layout>
             )}
+          />
+          <Route
+            path="/mom"
+            render={(props) => <Layout {...props}>{<Mom {...props} />}</Layout>}
           />
           <Route
             path="/scattergories"
