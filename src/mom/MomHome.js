@@ -9,16 +9,41 @@ import card16 from "./cardAssets/card16.jpeg"
 import card20 from "./cardAssets/card20.jpeg"
 
 const images = [
-  { id: 1, src: card1, alt: "Birthday", text: "Birthday" },
-  { id: 2, src: card16, alt: "Holiday", text: "Holiday" },
-  { id: 3, src: card20, alt: "Sympathy", text: "Sympathy" },
-  { id: 4, src: card6, alt: "Baby", text: "Baby" },
-  { id: 5, src: card5, alt: "General", text: "General" },
+  {
+    id: 1,
+    src: card1,
+    alt: "Birthday",
+    text: "Birthday",
+    display: "horizontal",
+  },
+  {
+    id: 2,
+    src: card5,
+    alt: "Blank Art Cards",
+    text: "Blank Art Cards",
+    display: "vertical",
+  },
+  {
+    id: 3,
+    src: card20,
+    alt: "Sympathy",
+    text: "Sympathy",
+    display: "horizontal",
+  },
+  { id: 4, src: card6, alt: "Baby", text: "Baby", display: "horizontal" },
+  {
+    id: 5,
+    src: card16,
+    alt: "Holiday",
+    text: "Holiday",
+    display: "vertical",
+  },
   {
     id: 6,
     src: card3,
     alt: "Anniversary/Marriage",
     text: "Anniversary/Marriage",
+    display: "horizontal",
   },
 ]
 
@@ -32,7 +57,11 @@ class Mom extends React.Component {
         <img
           src={item.src}
           alt={item.alt}
-          className="home-card-img skewedshadow"
+          className={`${
+            item.display === "vertical"
+              ? "home-card-img-vert"
+              : "home-card-img-horiz"
+          } skewedshadow`}
           onClick={() => onScreenClick(item.text)}
         />
       </div>
@@ -59,8 +88,8 @@ class Mom extends React.Component {
     return (
       <div className="momhome-container">
         <div className="momhome-copy-container">
-          <div>{this.renderCopy()}</div>
-          <div>{this.renderPricing()}</div>
+          {/* <div>{this.renderCopy()}</div>
+          <div>{this.renderPricing()}</div> */}
         </div>
         <div className="momhome-imgs-container">{this.renderPictures()}</div>
       </div>

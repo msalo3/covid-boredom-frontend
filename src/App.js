@@ -24,6 +24,7 @@ import {
   faQuestionCircle,
   faStrikethrough,
   faBookOpen,
+  faDotCircle,
 } from "@fortawesome/free-solid-svg-icons"
 import { fab } from "@fortawesome/free-brands-svg-icons"
 
@@ -41,7 +42,8 @@ library.add(
   faChevronLeft,
   faQuestionCircle,
   faStrikethrough,
-  faBookOpen
+  faBookOpen,
+  faDotCircle
 )
 
 class App extends React.Component {

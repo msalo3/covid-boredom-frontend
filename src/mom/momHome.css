@@ -25,9 +25,13 @@
   padding: 20px;
 }
 
+.home-card-img-horiz {
+  width: 35vw;
+  padding: 0px 20px 20px 20px;
+}
 
-.home-card-img {
-  width: 20vw;
+.home-card-img-vert {
+  width: 27vw;
   padding: 0px 20px 20px 20px;
 }
 
@@ -39,6 +43,7 @@
   text-align: center;
   align-self: center;
   justify-self: center;
+  font-size: 30px;
 }
 
 .momhome-copy {

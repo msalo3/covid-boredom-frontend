@@ -1,28 +1,12 @@
 import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import "./teamNames.css"
+import "./quizInstance.css"
 
-const DATA = [
-  { name: "Red Sox", league: "MLB", guessed: false, reguessed: false },
-  { name: "White Sox", league: "MLB", guessed: false, reguessed: false },
-  { name: "Heat", league: "NBA", guessed: false, reguessed: false },
-  { name: "Thunder", league: "NBA", guessed: false, reguessed: false },
-  { name: "Magic", league: "NBA", guessed: false, reguessed: false },
-  { name: "Jazz", league: "NBA", guessed: false, reguessed: false },
-  { name: "Avalanche", league: "NHL", guessed: false, reguessed: false },
-  { name: "Wild", league: "NHL", guessed: false, reguessed: false },
-  { name: "Lightning", league: "NHL", guessed: false, reguessed: false },
-]
-
-const COPY1 =
-  'In the NFL, NBA, MLB, and NHL there are a total of 9 teams whose names do not end in an "S"'
-const COPY2 = "Can you guess them all??"
-
-class TeamNames extends React.Component {
+class QuizInstance extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      teams: DATA,
+      teams: props.data,
       inputValue: "",
       incorrect: false,
       reguessedIndex: null,
@@ -96,19 +80,20 @@ class TeamNames extends React.Component {
 
   renderTeams = () => {
     const { teams, reguessedIndex } = this.state
+    const { cardStyle } = this.props
     return teams.map((team, i) => {
       if (team.guessed) {
         let classes = "q-team-card q-card-guessed"
         if (reguessedIndex === i) classes = classes + " q-reguessed"
         return (
-          <div key={team.name} className={classes}>
+          <div key={team.name} className={classes} style={cardStyle}>
             <div className="q-team-text">{team.name}</div>
           </div>
         )
       }
       return (
-        <div key={team.name} className="q-team-card">
-          <div className="q-team-text">{team.league}</div>
+        <div key={team.name} className="q-team-card" style={cardStyle}>
+          <div className="q-team-text">{team.placeholder}</div>
         </div>
       )
     })
@@ -124,8 +109,8 @@ class TeamNames extends React.Component {
             className="q-back-btn"
           />
           <div className="q-copy-container">
-            <div className="q-heading">{COPY1}</div>
-            <div className="q-heading">{COPY2}</div>
+            <div className="q-heading">{this.props.copy1}</div>
+            <div className="q-heading">{this.props.copy2}</div>
           </div>
         </div>
         {this.renderGameOrWin()}
@@ -134,4 +119,4 @@ class TeamNames extends React.Component {
   }
 }
 
-export default TeamNames
+export default QuizInstance

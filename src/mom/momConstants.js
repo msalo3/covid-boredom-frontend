@@ -24,7 +24,14 @@ export const SCREENS = [
     id: 1,
     screen: "Birthday",
     mainImg: card1,
-    images: [card1, card9, card13],
+    images: [
+      {
+        image: card1,
+        name: "Lemon Pie",
+      },
+      card9,
+      card13,
+    ],
   },
   { id: 2, screen: "Sympathy", mainImg: card20, images: [card20] },
   {
@@ -41,7 +48,7 @@ export const SCREENS = [
   },
   {
     id: 5,
-    screen: "General",
+    screen: "Blank Art Cards",
     mainImg: card5,
     images: [card4, card5, card7, card8, card12, card14, card15],
   },
@@ -53,13 +60,12 @@ export const SCREENS = [
   },
 ]
 
-export const HEADER_COPY = "Mason Salo Cards"
+export const HEADER_COPY = "All Cards"
 
 export const COPY = [
-  "Handmade in Pittsburgh with scissors, paper and glue!",
-  "All designs are mounted on white 5”x7” card with envelope included.",
-  "*All cards are Blank Inside*",
-  "(Some cards have short message on front.)",
+  "Handmade in Pittsburgh with scissors, paper and glue: Collage!",
+  "All designs are mounted on white 5”x7” cards with envelope included.",
+  "*All cards are Blank Inside* (Some cards have short message on front.)",
   "Cards are packaged in clear cellophane.",
 ]
 
@@ -68,4 +74,5 @@ export const PRICING_COPY = [
   "\u25cf 1 for $6",
   "\u25cf 4 for $20",
   "\u25cf 10 for $45",
+  "Buy Cards",
 ]
