@@ -1,3 +1,7 @@
+body {
+    margin: 2px;
+}
+
 div {
     padding: 2px;
 }
@@ -30,6 +34,10 @@ form > button {
 .center {
     align-self: center;
     text-align: center;
+}
+
+.third {
+    height: 20vh;
 }
 
 /**
