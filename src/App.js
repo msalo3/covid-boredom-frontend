@@ -5,8 +5,9 @@ import Home from "./home/Home"
 // import Color from './color/Color';
 import Nba from "./basketball/Nba"
 import Quiz from "./quiz"
-import Mom from "./mom"
 import ComingSoon from "./soon/comingSoon"
+// import Snake from "./snake"
+import River from "./river"
 import Scattergories from "./scattergories/Scattergories"
 import Layout from "./layout"
 import { library } from "@fortawesome/fontawesome-svg-core"
@@ -23,8 +24,9 @@ import {
   faChevronLeft,
   faQuestionCircle,
   faStrikethrough,
-  faBookOpen,
   faDotCircle,
+  faDragon,
+  faBeer
 } from "@fortawesome/free-solid-svg-icons"
 import { fab } from "@fortawesome/free-brands-svg-icons"
 
@@ -42,8 +44,9 @@ library.add(
   faChevronLeft,
   faQuestionCircle,
   faStrikethrough,
-  faBookOpen,
-  faDotCircle
+  faDotCircle,
+  faDragon,
+  faBeer
 )
 
 class App extends React.Component {
@@ -60,13 +63,7 @@ class App extends React.Component {
             render={(props) => <Layout {...props}>{<Nba {...props} />}</Layout>}
           />
           <Route
-            path="/chat"
-            render={(props) => (
-              <Layout {...props}>{<ComingSoon {...props} />}</Layout>
-            )}
-          />
-          <Route
-            path="/color"
+            path="/snake"
             render={(props) => (
               <Layout {...props}>{<ComingSoon {...props} />}</Layout>
             )}
@@ -78,13 +75,15 @@ class App extends React.Component {
             )}
           />
           <Route
-            path="/mom"
-            render={(props) => <Layout {...props}>{<Mom {...props} />}</Layout>}
-          />
-          <Route
             path="/scattergories"
             render={(props) => (
               <Layout {...props}>{<Scattergories {...props} />}</Layout>
+            )}
+          />
+          <Route
+            path="/uptheriver"
+            render={(props) => (
+              <Layout {...props}>{<River {...props} />}</Layout>
             )}
           />
           <Route

@@ -5,13 +5,6 @@
   align-items: center;
 }
 
-.q-copy-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-
 .q-heading {
   font-size: 3vh;
   padding: 20px

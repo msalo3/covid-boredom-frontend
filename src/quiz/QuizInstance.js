@@ -1,51 +1,45 @@
-import React from "react"
+import React, { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./quizInstance.css"
 
-class QuizInstance extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      teams: props.data,
-      inputValue: "",
-      incorrect: false,
-      reguessedIndex: null,
-      isWon: false,
-    }
-  }
+const QuizInstance = ({ data, cardStyle, backClicked, copy1, copy2 }) => {
+  const [teams, setTeams] = useState(data)
+  const [inputValue, setInputValue] = useState("")
+  const [incorrect, setIncorrect] = useState(false)
+  const [reguessedIndex, setReguessedIndex] = useState(null)
+  const [isWon, setIsWon] = useState(false)
 
-  renderGameOrWin = () => {
-    if (this.state.isWon) {
+  const renderGameOrWin = () => {
+    if (isWon) {
       return <div className="q-teams-wontext">Congrats! You Won!</div>
     }
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
             name=""
-            value={this.state.inputValue}
-            onChange={(e) => this.setState({ inputValue: e.target.value })}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             className="q-teams-input"
           />
         </form>
-        <div className="q-teams-container">{this.renderTeams()}</div>
+        <div className="q-teams-container">{renderTeams()}</div>
       </>
     )
   }
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    const { teams, inputValue } = this.state
     let needToChangeState = 0
     let totalTeamsGuessed = 0
 
-    let reguessedIndex = null
+    let idx = null
     const newTeams = teams.map((team, i) => {
       if (team.guessed) totalTeamsGuessed += 1
       if (team.name.toLowerCase() === inputValue.toLowerCase()) {
         if (team.guessed) {
           needToChangeState = 2
-          reguessedIndex = i
+          idx = i
         } else {
           totalTeamsGuessed += 1
           needToChangeState = 1
@@ -60,27 +54,24 @@ class QuizInstance extends React.Component {
     })
 
     if (needToChangeState === 0) {
-      this.setState({ incorrect: true })
+      setIncorrect(true)
     } else {
-      this.setState({
-        teams: newTeams,
-        inputValue: "",
-        reguessedIndex,
-        isWon: totalTeamsGuessed === 9,
-      })
+      setTeams(newTeams)
+      setInputValue("")
+      setReguessedIndex(idx)
+      setIsWon(totalTeamsGuessed === 9)
+      
       if (needToChangeState === 2) {
-        setTimeout(
-          () => this.setState({ inputValue: "", reguessedIndex: null }),
-          2000
-        )
+        setTimeout(() => {
+          setInputValue("")
+          setReguessedIndex(null)
+        }, 2000)
       }
     }
     return false
   }
 
-  renderTeams = () => {
-    const { teams, reguessedIndex } = this.state
-    const { cardStyle } = this.props
+  const renderTeams = () => {
     return teams.map((team, i) => {
       if (team.guessed) {
         let classes = "q-team-card q-card-guessed"
@@ -98,25 +89,24 @@ class QuizInstance extends React.Component {
       )
     })
   }
-  render() {
-    return (
-      <div className="q-container">
-        <div className="q-top-row">
-          <FontAwesomeIcon
-            icon="chevron-left"
-            size="2x"
-            onClick={() => this.props.backClicked()}
-            className="q-back-btn"
-          />
-          <div className="q-copy-container">
-            <div className="q-heading">{this.props.copy1}</div>
-            <div className="q-heading">{this.props.copy2}</div>
-          </div>
+
+  return (
+    <div className="q-container">
+      <div className="q-top-row">
+        <FontAwesomeIcon
+          icon="chevron-left"
+          size="2x"
+          onClick={backClicked}
+          className="q-back-btn"
+        />
+        <div className="q-container">
+          <div className="q-heading">{copy1}</div>
+          <div className="q-heading">{copy2}</div>
         </div>
-        {this.renderGameOrWin()}
       </div>
-    )
-  }
+      {renderGameOrWin()}
+    </div>
+  )
 }
 
 export default QuizInstance

@@ -15,29 +15,17 @@
 .home-card-text {
   padding-bottom: 20px;
   text-align: center;
-  font-size: 20px;
+  font-size: 25px;
 }
 
-@media screen and (min-width: 320px) and (max-width: 675px){
-  .home-content {
-  }
-}
 
 @media screen and (min-width: 676px){
-  .home-content {
-  }
   .card-col {
     padding: 50vh 25vw 10vh 25vw;
   }
 
-  .card-left {
-    padding: 40vh 45vw 10vh 15vw;
-    min-width: 100px;
-  }
-
-  .card-right {
-    padding: 40vh 20vw 10vh 40vw;
-    min-width: 100px;
+  .card-middle {
+    padding: 10vh 20vw 10vh 20vw;
+    min-width: 140px;
   }
 }
-

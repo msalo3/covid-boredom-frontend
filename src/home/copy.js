@@ -1,3 +1,5 @@
+export const HOME_TEXT = "Mostly this is just a place for me to put any tiny projects I halfway build. Enjoy!"
+
 export const HOME_TEXTA = [
   "Being from Pittsburgh, I was raised in the era of DragonBall Z, AOL CD infestations, and the nightmare inducing sound of the internet being born through dial up.",
   "These things may or may not have fueled my desire to work in software development and after a necessary psychology degree and 10 years of bartending experience, I took a shot on a kick-ass bootcamp.",

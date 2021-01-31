@@ -6,62 +6,31 @@ import BBall from "../basketball/BBall"
 // import Line from "./Line"
 
 import "./home.css"
-import { HOME_TEXTA, HOME_TEXTB, HOME_TEXTC, HOME_TEXTD } from "./copy"
+import { HOME_TEXT } from "./copy"
 
-class Home extends React.Component {
-  state = {
-    lineShown: 0,
-  }
-
-  cardHover = (val) => {
-    if (this.state.lineShown >= val) return null
-    this.setState({ lineShown: val })
-    return null
-  }
-  render() {
-    function cards() {
-      const data = [
-        { id: 1, icon: "id-badge", css: "card-left", text: HOME_TEXTA },
-        {
-          id: 2,
-          icon: ["fab", "linkedin"],
-          css: "card-right",
-          text: HOME_TEXTB,
-        },
-        { id: 3, icon: "envelope", css: "card-left", text: HOME_TEXTC },
-        { id: 4, icon: "laptop", css: "card-right", text: HOME_TEXTD },
-      ]
-      return data.map((item, i) => (
-        <div key={item.id} className={item.css}>
+const Home = () => {
+  return (
+    <div className="home-container">
+      <BBall />
+      <div className="home-content">
+        <div className="card-middle">
           <Card>
-            <div
-              className="inner-card"
-              onMouseOver={() => null && this.cardHover(i)}
-            >
-              {item.text.map((t) => (
-                <div key={t.length} className="home-card-text">
-                  {t}
-                </div>
-              ))}
+            <div className="inner-card">
+              <div className="home-card-text">
+                {HOME_TEXT}
+              </div>
             </div>
           </Card>
-          {/* <Line start={i % 2 === 0 ? "left" : "right"} /> */}
         </div>
-      ))
-    }
-    return (
-      <div className="home-container">
-        <BBall />
-        <div className="home-content">{cards()}</div>
-        <HomeFooter>
-          {/* <FontAwesomeIcon icon={["fab", "github"]} size="2x" />
-          <FontAwesomeIcon icon={["fab", "linkedin"]} />
-          <FontAwesomeIcon icon="envelope" />
-          <FontAwesomeIcon icon="laptop" /> */}
-        </HomeFooter>
       </div>
-    )
-  }
+      <HomeFooter>
+        {/* <FontAwesomeIcon icon={["fab", "github"]} size="2x" />
+        <FontAwesomeIcon icon={["fab", "linkedin"]} />
+        <FontAwesomeIcon icon="envelope" />
+        <FontAwesomeIcon icon="laptop" /> */}
+      </HomeFooter>
+    </div>
+  )
 }
 
 export default Home

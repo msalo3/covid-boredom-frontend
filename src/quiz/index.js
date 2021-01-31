@@ -1,20 +1,26 @@
-import React from "react"
+import React, { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import QuizInstance from "./QuizInstance"
 import { TeamNameQuiz } from "./quizzes"
 
 import "./quiz.css"
 
-class Quiz extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      screen: "quiz-home", // quiz-home, team-names, pokemon
-    }
+const Quiz = () => {
+  const [screen, setScreen] = useState("quiz-home")
+
+  if (screen === "team-names") {
+    return (
+      <QuizInstance
+        backClicked={() => setScreen("quiz-home")}
+        data={TeamNameQuiz.data}
+        copy1={TeamNameQuiz.copy1}
+        copy2={TeamNameQuiz.copy2}
+      />
+    )
   }
 
-  renderQuizHome = () => {
-    return (
+  return (
+    <div className="quiz-index-container">
       <div className="quiz-home-container">
         <div className="quiz-heading">
           <div>Quiz Games</div>
@@ -24,13 +30,7 @@ class Quiz extends React.Component {
             <FontAwesomeIcon
               icon="strikethrough"
               size="2x"
-              onClick={() => this.setState({ screen: "team-names" })}
-              className="quiz-icon"
-            />
-            <FontAwesomeIcon
-              icon="dot-circle"
-              size="2x"
-              onClick={() => this.setState({ screen: "pokemon" })}
+              onClick={() => setScreen("team-names")}
               className="quiz-icon"
             />
             <div className="quiz-icon-text">
@@ -42,42 +42,8 @@ class Quiz extends React.Component {
           </div>
         </div>
       </div>
-    )
-  }
-
-  renderQuizScreens = () => {
-    const { screen } = this.state
-
-    switch (screen) {
-      case "team-names":
-        return (
-          <QuizInstance
-            backClicked={() => this.setState({ screen: "quiz-home" })}
-            data={TeamNameQuiz.data}
-            copy1={TeamNameQuiz.copy1}
-            copy2={TeamNameQuiz.copy2}
-          />
-        )
-      case "pokemon":
-        return (
-          <QuizInstance
-            backClicked={() => this.setState({ screen: "quiz-home" })}
-            data={TeamNameQuiz.data}
-            copy1={TeamNameQuiz.copy1}
-            copy2={TeamNameQuiz.copy2}
-            cardStyle={{ width: "10%" }}
-          />
-        )
-      default:
-        return this.renderQuizHome()
-    }
-  }
-
-  render() {
-    return (
-      <div className="quiz-index-container">{this.renderQuizScreens()}</div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Quiz
