@@ -1,7 +1,7 @@
-const ROUND_START = 5
+const ROUND_START = 1
 const load = () => {
-  const p = [new Player('mac'), new Player('v')]
-  var gameSetup = new GameSetup(p)
+  // const p = [new Player('mac'), new Player('v')]
+  var gameSetup = new GameSetup()
   gameSetup.showPlayers()
   var game;
 
