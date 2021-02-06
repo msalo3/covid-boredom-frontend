@@ -1,5 +1,7 @@
+const ROUND_START = 4
 const load = () => {
   var gameSetup = new GameSetup()
+  gameSetup.showPlayers()
   var game;
 
   const processForm = (e) => {
@@ -142,12 +144,15 @@ class GameSetup {
     for (let i = 0; i < this.players.length; i++) {
       const name = this.players[i].name;
       var div = document.createElement("div");
+      div.classList.add('player-name-row')
       var para = document.createElement("p");
+      para.classList.add('name')
       var node = document.createTextNode(name);
       para.appendChild(node);
 
       var button = document.createElement('button');
       button.innerHTML = 'Remove Player'
+      button.classList.add("remove-player-btn")
 
       div.appendChild(para);
       div.appendChild(button);
@@ -207,7 +212,7 @@ class Game {
   BUS_ORDER = ["give-1", "take-1", "give-2", "take-2", "give-3", "take-3", "give-4", "take-4", "give-5", "take-5"]
   constructor(players) {
     this.players = players
-    this.round = 1
+    this.round = ROUND_START
     this.turnsPerRound = players.length
     this.turnCount = 0
     this.deck = this.fillRegularDeck()
@@ -281,6 +286,8 @@ class Game {
       this.drawBusCardHeader(true, busPromptArea, data)
 
       var promptForm = document.createElement("form");
+      var wrapperDiv = document.createElement("div");
+      wrapperDiv.classList.add('radio-toolbar')
       for (let i = 0; i < this.players.length; i++) {
         const playerName = this.players[i].name
         if (playerName === ownerName) continue;
@@ -296,15 +303,16 @@ class Game {
         var labelText = document.createTextNode(playerName);
         label.appendChild(labelText)
 
-        var br = document.createElement("br");
-
-        promptForm.appendChild(radio)
-        promptForm.appendChild(label)
-        promptForm.appendChild(br)
+        wrapperDiv.appendChild(radio)
+        wrapperDiv.appendChild(label)
       }
+      promptForm.appendChild(wrapperDiv)
 
       var btn = document.createElement('button');
-      btn.innerHTML = 'Submit'
+      btn.classList.add('submit-button')
+      var btnSpan = document.createElement('span')
+      btnSpan.innerHTML = 'Submit'
+      btn.appendChild(btnSpan)
 
       promptForm.appendChild(btn);
       btn.addEventListener("click", (e) => {
@@ -312,6 +320,7 @@ class Game {
 
         var radios = document.getElementsByName("players");
         for (let j = 0; j < radios.length; j++) {
+          radios[j].disabled = true
           if (radios[j].checked) {
             data.owner.removeCardsFromHand([card])
             const newOwner = this.players.find((p) => p.name === radios[j].value)
@@ -355,6 +364,8 @@ class Game {
   showGameOver() {
     const busArea = document.getElementById('bus-area')
     busArea.innerHTML = ''
+    const tableArea = document.getElementById('header-container')
+    tableArea.innerHTML = ''
 
     const gameOverArea = document.getElementById('game-over-area')
     gameOverArea.setAttribute('style', 'display: block;')
@@ -616,6 +627,8 @@ function showPrompts(game) {
 
   // Add form
   var promptForm = document.createElement("form");
+  var wrapperDiv = document.createElement("div");
+  wrapperDiv.classList.add('radio-toolbar')
   for (let i = 0; i < options.length; i++) {
     var radio = document.createElement("input");
     radio.type = "radio"
@@ -628,15 +641,16 @@ function showPrompts(game) {
     var labelText = document.createTextNode(options[i]);
     label.appendChild(labelText)
 
-    var br = document.createElement("br");
-
-    promptForm.appendChild(radio)
-    promptForm.appendChild(label)
-    promptForm.appendChild(br)
+    wrapperDiv.appendChild(radio)
+    wrapperDiv.appendChild(label)
   }
+  promptForm.appendChild(wrapperDiv)
 
   var btn = document.createElement('button');
-  btn.innerHTML = 'Submit'
+  btn.classList.add('submit-button')
+  var btnSpan = document.createElement('span')
+  btnSpan.innerHTML = 'Submit'
+  btn.appendChild(btnSpan)
 
   promptForm.appendChild(btn);
   btn.addEventListener("click", (e) => {
@@ -644,6 +658,7 @@ function showPrompts(game) {
 
     var radios = document.getElementsByName(title);
     for (let j = 0; j < radios.length; j++) {
+      radios[j].disabled = true
       if (radios[j].checked) {
         dealCards(radios[j].value, game)
         btn.remove()
@@ -682,6 +697,7 @@ function showPlayersAndHands(game) {
     nameData.appendChild(name);
 
     var cardData = document.createElement("div");
+    cardData.setAttribute('class', 'player-hand')
 
     var ul = document.createElement("ul");
     ul.setAttribute('class', 'hand rotateHand')

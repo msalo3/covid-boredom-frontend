@@ -3,12 +3,83 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Game</title>
+  <title>Add Players</title>
+  <link rel="stylesheet" type="text/css" href="cards.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <h2>Up The River Down The River</h2>
-  <a href="playArea.html">New Game</a>
+  <div id="game-setup-container" class="center">
+    <h1>Up the River, Down the River</h2>
+      <h2>Add Players</h2>
+      <h3 id="max">(4 player max and names must be unique)</h3>
+      <form id="name-form">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" maxlength="12"><br>
+        <button type="submit" class="add-player-btn">Add Player</button>
+      </form>
+      <div id="players"></div>
+      <div id="start-game" style="display: none;">
+        <button id="start-game-btn" class="start-btn">
+          Start Game
+        </button>
+      </div>
+  </div>
+  <div id="game-container" style="display: none;">
+    <div class="wrapper">
+      <div class="player-row">
+        <div id="player-div-1" class="player playingCards faceImages rotateHand">
+        </div>
+
+        <div id="player-div-2" class="player playingCards faceImages rotateHand">
+        </div>
+
+        <div id="player-div-3" class="player playingCards faceImages rotateHand">
+        </div>
+
+        <div id="player-div-4" class="player playingCards faceImages rotateHand">
+        </div>
+      </div>
+
+      <div class="table-area">
+        <div id="header-container" class="center">
+          <h2 id="round-number"></h2>
+          <h3 id="round-title"></h3>
+        </div>
+
+        <div id="table-container" class="center">
+          <div id="prompt-area"></div>
+          <div id="card-area" class="playingCards faceImages"></div>
+          <div id="drinks-area"></div>
+        </div>
+        <div id="bus-area" style="display: none;">
+          <hr class="rounded">
+          <h3 style="text-align: center;">Give</h3>
+          <div class="playingCards faceImages" style="display: flex; justify-content: center;">
+            <div id="bus-left" style="flex: 0 0; padding-top: 60px;"></div>
+            <div id="bus-mid">
+              <div id="bus-mid-top">
+              </div>
+              <div id="bus-mid-bottom">
+              </div>
+            </div>
+            <div id="bus-right" style="flex: 0 0; padding-top: 60px;">
+            </div>
+          </div>
+          <h3 style="text-align: center;">Take</h3>
+          <hr class="rounded">
+          <div id="bus-prompt-area" style="text-align: center; padding-bottom: 50px;"></div>
+        </div>
+
+        <div id="game-over-area" class="center" style="display: none;">
+          <h2>Game Over</h2>
+          <h3>Thank you for playing!</h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+<script src="main.js"></script>
 
 </html>
