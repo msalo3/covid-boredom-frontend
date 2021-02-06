@@ -1,6 +1,7 @@
 body {
     background-color: #fff;
     font-family: 'Roboto Mono', monospace;
+    min-width: 800px;
 }
 
 div {
@@ -22,7 +23,7 @@ form > button {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
+    height: 40vh;
 }
 
 .player-name-row {
@@ -69,8 +70,15 @@ input[type=text] {
 hr.rounded {
   border-top: 8px solid #bbb;
   border-radius: 5px;
+  width: 90%;
 }
 
+#bus-area {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 40vh;
+}
 
 /**
  * Button Styling

@@ -1,6 +1,7 @@
-const ROUND_START = 4
+const ROUND_START = 5
 const load = () => {
-  var gameSetup = new GameSetup()
+  const p = [new Player('mac'), new Player('v')]
+  var gameSetup = new GameSetup(p)
   gameSetup.showPlayers()
   var game;
 
@@ -482,8 +483,14 @@ function poker(game) {
 }
 
 function bus(game) {
+  const tableArea = document.getElementById('header-container')
+  tableArea.innerHTML = ''
+
   const busArea = document.getElementById('bus-area')
-  busArea.setAttribute('style', 'display: block;')
+  busArea.setAttribute('style', 'display: flex;')
+
+  const divider = document.getElementById('divider')
+  divider.setAttribute('style', 'display: block;')
 
   const busLeft = document.getElementById('bus-left')
   const busMidTop = document.getElementById('bus-mid-top')
