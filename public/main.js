@@ -1,11 +1,12 @@
 const ROUND_START = 1
 const PLAYER_LIMIT = 6
 const load = () => {
-  const p = [new Player('marc'), new Player('victoria')]
+  // const p = [new Player('marc'), new Player('victoria'), new Player('j')]
+  const p = []
   var gameSetup = new GameSetup(p)
   gameSetup.showPlayers()
   var game;
-  
+
   const processForm = (e) => {
     if (e.preventDefault) e.preventDefault();
 
@@ -178,7 +179,7 @@ class GameSetup {
   showPlayers() {
     var playersNode = document.getElementById("players");
     playersNode.innerHTML = ""
-    
+
     for (let i = 0; i < this.players.length; i++) {
       const name = this.players[i].name;
       var div = document.createElement("div");
@@ -191,7 +192,7 @@ class GameSetup {
       var button = document.createElement('button');
       button.innerHTML = 'Remove Player'
       button.classList.add("remove-player-btn")
-      
+
       div.appendChild(para);
       div.appendChild(button);
       button.addEventListener("click", () => this.removePlayer(name));
@@ -231,7 +232,7 @@ class Game {
     {
       number: 4,
       title: "Guess the Suit",
-      options: ["Spades", "Clubs",  "Hearts", "Diamonds"],
+      options: ["Spades", "Clubs", "Hearts", "Diamonds"],
       numCardsToDeal: 1,
       logicFn: gotSuitRight
     },
@@ -320,8 +321,9 @@ class Game {
   }
 
   finalizeDrinks(ownerName) {
+    console.log('Game', this)
     if (this.drinkCounter.totalNeeded !== this.drinkCounter.totalAdded) return false;
-    
+
     const owner = this.players.find((p) => p.name === ownerName)
     for (let i = 0; i < this.players.length; i++) {
       if (this.players[i].name === ownerName) continue
@@ -331,47 +333,23 @@ class Game {
       var drinkCount = this.drinkCounter[player.name]
       while (drinkCount > 0) {
         player.takeDrink()
-        this.drinksTakenHistory.push(name)
-        
+        this.drinksTakenHistory.push({
+          takenBy: name,
+          givenBy: ownerName,
+          round: this.round
+        })
+
         owner.giveDrink()
-        this.drinksGivenHistory.push(ownerName)
+        this.drinksGivenHistory.push({
+          takenBy: name,
+          givenBy: ownerName,
+          round: this.round
+        })
 
         drinkCount--
       }
       this.drinkCounter[player.name] = 0
     }
-    this.drinkCounter.totalNeeded = 0
-    this.drinkCounter.totalAdded = 0
-    
-    return true
-  }
-
-  finalizePokerDrinks(ownerNames) {
-    if (this.drinkCounter.totalNeeded !== this.drinkCounter.totalAdded) return false;
-
-    for (let i = 0; i < this.players.length; i++) {
-      if (ownerNames.includes(this.players[i].name)) continue
-
-      const player = this.players[i];
-      const name = player.name;
-      var drinkCount = this.drinkCounter[player.name]
-      while (drinkCount > 0) {
-        player.takeDrink()
-        this.drinksTakenHistory.push(name)
-
-        drinkCount--
-      }
-      this.drinkCounter[player.name] = 0
-    }
-
-    for (let j = 0; j < ownerNames.length; j++) {
-      const owner = this.players.find((p) => p.name === ownerNames[j])
-      for (let k = 0; k < 5; k++) {
-        owner.giveDrink()
-        this.drinksGivenHistory.push(ownerNames[j])
-      }
-    }
-    
     this.drinkCounter.totalNeeded = 0
     this.drinkCounter.totalAdded = 0
 
@@ -383,14 +361,26 @@ class Game {
     if (owner) {
       for (let i = 0; i < amt; i++) {
         taker.takeDrink()
-        this.drinksTakenHistory.push(taker.name)
+        this.drinksTakenHistory.push({
+          takenBy: taker.name,
+          givenBy: owner.name,
+          round: this.round
+        })
 
         owner.giveDrink()
-        this.drinksGivenHistory.push(owner.name)
+        this.drinksGivenHistory.push({
+          takenBy: taker.name,
+          givenBy: owner.name,
+          round: this.round
+        })
       }
     } else {
       taker.takeDrink()
-      this.drinksTakenHistory.push(taker.name)
+      this.drinksTakenHistory.push({
+        takenBy: taker.name,
+        givenBy: 'game',
+        round: this.round
+      })
     }
     return true
   }
@@ -468,7 +458,7 @@ class Game {
       var btnSpan = document.createElement('span')
       btnSpan.innerHTML = 'Submit'
       btn.appendChild(btnSpan)
-      
+
       promptForm.appendChild(btn);
       btn.addEventListener("click", (e) => {
         if (e.preventDefault) e.preventDefault();
@@ -503,7 +493,7 @@ class Game {
 
     let text = ownerName + ", "
 
-    
+
     if (isGive) {
       text += "who gets to drink " + drinkAmt + "? (they also get your " + rankOfSuit + ")"
     } else {
@@ -516,38 +506,139 @@ class Game {
     area.appendChild(header)
   }
 
+  showPokerDrinks(playerNames, idx = 0) {
+    var drinkArea = document.getElementById("drinks-area")
+    drinkArea.innerHTML = ""
+
+    if (!playerNames[idx]) {
+      // No more players to handle, move on to next round
+      document.getElementById("prompt-area").innerHTML = ""
+      document.getElementById("card-area").innerHTML = ""
+      document.getElementById("drinks-area").innerHTML = ""
+      run(this)
+      return
+    }
+
+    var name = playerNames[idx]
+    var text = name + " give 5 drinks"
+    const drinkHeader = document.createElement("h3")
+    const drinkText = document.createTextNode(text)
+    drinkHeader.appendChild(drinkText)
+    drinkArea.appendChild(drinkHeader)
+
+    this.updateTotalNeeded(5)
+
+    var colDiv = document.createElement("div");
+    colDiv.classList.add('math-col')
+
+    for (let i = 0; i < this.players.length; i++) {
+      const playerName = this.players[i].name
+      if (name === playerName) continue;
+
+      var wrapperDiv = document.createElement("div");
+      wrapperDiv.classList.add('math-row')
+
+      var txtHolder = document.createElement("h4");
+      txtHolder.setAttribute('id', playerName)
+      var playerDrinkTxt = document.createTextNode(playerName + " takes " + this.currentDrinkCount(playerName));
+      txtHolder.appendChild(playerDrinkTxt)
+
+      var addBtn = document.createElement("button");
+      addBtn.classList.add('math-button')
+      var addBtnSpan = document.createElement('span')
+      addBtnSpan.innerHTML = '+'
+      addBtn.appendChild(addBtnSpan)
+      addBtn.addEventListener("click", (e) => {
+        if (e.preventDefault) e.preventDefault();
+        this.addToDrinkCount(playerName, function (newNum) {
+          var txtHolder = document.getElementById(playerName)
+          const newText = playerName + " takes " + newNum
+
+          txtHolder.innerText = newText
+        })
+        return false
+      });
+
+      var removeBtn = document.createElement("button");
+      removeBtn.classList.add('math-button')
+      var removeBtnSpan = document.createElement('span')
+      removeBtnSpan.innerHTML = '-'
+      removeBtn.appendChild(removeBtnSpan)
+      removeBtn.addEventListener("click", (e) => {
+        if (e.preventDefault) e.preventDefault();
+        this.removeFromDrinkCount(playerName, (newNum) => {
+          var txtHolder = document.getElementById(playerName)
+          txtHolder.innerText = playerName + " takes " + newNum
+        })
+        return false;
+      });
+
+      wrapperDiv.appendChild(addBtn)
+      wrapperDiv.appendChild(removeBtn)
+      wrapperDiv.appendChild(txtHolder)
+      colDiv.appendChild(wrapperDiv)
+    }
+    drinkArea.appendChild(colDiv)
+
+    var submitBtn = document.createElement('button');
+    submitBtn.innerHTML = 'Submit'
+
+    drinkArea.appendChild(submitBtn);
+    submitBtn.addEventListener("click", () => {
+      const shouldContinue = this.finalizeDrinks(name)
+      if (shouldContinue) {
+        document.getElementById("prompt-area").innerHTML = ""
+        document.getElementById("card-area").innerHTML = ""
+        document.getElementById("drinks-area").innerHTML = ""
+        this.showPokerDrinks(playerNames, idx + 1)
+      }
+    });
+  }
+
   showGameOver() {
     const busArea = document.getElementById('bus-area')
     busArea.innerHTML = ''
     busArea.setAttribute("style", "height: 0px;")
     const tableArea = document.getElementById('header-container')
     tableArea.innerHTML = ''
-    
+
     const gameOverArea = document.getElementById('game-over-area')
-    gameOverArea.setAttribute('style', 'display: block;')
-    showStatistics(this)
+    gameOverArea.setAttribute('style', 'display: block; height: 40vh')
+
+    const pRow = document.getElementById('player-row')
+    pRow.setAttribute('style', 'height: 42vh')
+
+    const extraStats = showStatistics(this)
+    for (let i = 0; i < extraStats.length; i++) {
+      gameOverArea.prepend(extraStats[i])
+    }
   }
 
   generateStats(name) {
-    const givenStats = this.findStreakAndTotal(name, this.drinksGivenHistory)
-    const takenStats = this.findStreakAndTotal(name, this.drinksTakenHistory)
+    const givenStats = this.findStreakAndTotal(name, this.drinksGivenHistory, 'givenBy')
+    const takenStats = this.findStreakAndTotal(name, this.drinksTakenHistory, 'takenBy')
+    const gameGivenStats = this.findPlayerSpecificGivenStats()
+    const playerSpecificStats = this.findPlayerSpecificGivenStats(name)
+    // TODO: Loop over each player and generate stats based on this.findPlayerSpecificGivenStats()
     return (
       {
         name: name,
         totalGiven: givenStats.total,
         totalTaken: takenStats.total,
         givenStreak: givenStats.maxStreak,
-        takenStreak: takenStats.maxStreak
+        takenStreak: takenStats.maxStreak,
+        gameGivenStats: gameGivenStats,
+        playerSpecificStats: playerSpecificStats
       }
     )
   }
 
-  findStreakAndTotal(val, arr) {
+  findStreakAndTotal(val, arr, key) {
     var streakCounter = 0;
     var maxStreak = 0
     var total = 0;
     for (let i = 0; i < arr.length; i++) {
-      const match = arr[i] === val
+      const match = arr[i][key] === val
       if (match) {
         streakCounter++
         total++
@@ -558,6 +649,50 @@ class Game {
       if (streakCounter > maxStreak) maxStreak = streakCounter
     }
     return ({ maxStreak, total })
+  }
+
+  findPlayerSpecificGivenStats(giverName = "game") {
+    // Should look kinda like this:
+    // { marc: 10, marcStreak: 0, marcStreakMax: 3, victoria: 5, victoriaStreak: 1, victoriaStreakMax: 1}
+    // marc === total drinks the giver/game gave the player
+    // marcStreak is just a tracker and can be ignored
+    // marcStreakMax === longest streak of drinks the giver/game gave the player
+
+    const givenByGamePerPlayer = {}
+
+    for (let j = 0; j < this.players.length; j++) {
+      let name = this.players[j].name
+      givenByGamePerPlayer[name] = 0
+
+      const nameStreak = name + "Streak"
+      givenByGamePerPlayer[nameStreak] = 0
+
+      const nameStreakMax = nameStreak + "Max"
+      givenByGamePerPlayer[nameStreakMax] = 0
+    }
+    for (let i = 0; i < this.drinksTakenHistory.length; i++) {
+      const el = this.drinksTakenHistory[i];
+      if (el.givenBy !== giverName) continue
+
+      const takenByName = el.takenBy
+      givenByGamePerPlayer[takenByName]++
+
+      for (let k = 0; k < this.players.length; k++) {
+        if (this.players[k].name === giverName) continue;
+
+        const name = this.players[k].name;
+        const nameStreak = name + "Streak"
+        const nameStreakMax = nameStreak + "Max"
+
+        if (name === takenByName) {
+          givenByGamePerPlayer[nameStreak]++
+        } else {
+          givenByGamePerPlayer[nameStreak] = 0
+        }
+        if (givenByGamePerPlayer[nameStreak] > givenByGamePerPlayer[nameStreakMax]) givenByGamePerPlayer[nameStreakMax] = givenByGamePerPlayer[nameStreak]
+      }
+    }
+    return givenByGamePerPlayer;
   }
 }
 
@@ -573,7 +708,218 @@ function run(game) {
     game.round += 1
     game.turnCount = 1
   }
-  
+
+
+  // ********  DEV ONLY  ******** //
+  if (game.round === 7) {
+    game.drinksGivenHistory = [
+      {
+        "takenBy": "victoria",
+        "givenBy": "marc",
+        "round": 1
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "game",
+        "round": 1
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "game",
+        "round": 1
+      },
+      {
+        "takenBy": "marc",
+        "givenBy": "game",
+        "round": 2
+      },
+      {
+        "takenBy": "marc",
+        "givenBy": "game",
+        "round": 2
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "game",
+        "round": 2
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "game",
+        "round": 2
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "game",
+        "round": 2
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "game",
+        "round": 2
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "marc",
+        "round": 3
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "marc",
+        "round": 3
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "marc",
+        "round": 3
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "game",
+        "round": 3
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "game",
+        "round": 3
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "game",
+        "round": 3
+      },
+      {
+        "takenBy": "marc",
+        "givenBy": "j",
+        "round": 3
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "j",
+        "round": 3
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "j",
+        "round": 3
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "marc",
+        "round": 4
+      },
+      {
+        "takenBy": "victoria",
+        "givenBy": "marc",
+        "round": 4
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "marc",
+        "round": 4
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "marc",
+        "round": 4
+      },
+      {
+        "takenBy": "marc",
+        "givenBy": "victoria",
+        "round": 4
+      },
+      {
+        "takenBy": "marc",
+        "givenBy": "victoria",
+        "round": 4
+      },
+      {
+        "takenBy": "marc",
+        "givenBy": "victoria",
+        "round": 4
+      },
+      {
+        "takenBy": "marc",
+        "givenBy": "victoria",
+        "round": 4
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "game",
+        "round": 4
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "game",
+        "round": 4
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "game",
+        "round": 4
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "game",
+        "round": 4
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "marc",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "marc",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "marc",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "marc",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "marc",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "victoria",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "victoria",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "victoria",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "victoria",
+        "round": 5
+      },
+      {
+        "takenBy": "j",
+        "givenBy": "victoria",
+        "round": 5
+      }
+    ]
+    game.drinksTakenHistory = game.drinksGivenHistory
+    game.showGameOver()
+    return
+  }
+  // ******** END DEV ONLY ******** //
+
 
   // Draw Players and Hands
   showPlayersAndHands(game)
@@ -666,7 +1012,12 @@ function showDrinks(isCorrect, currentPlayer, game, txt = undefined) {
     handOutDrinks(game, currentPlayer, drinkAmt, drinkArea)
   } else {
     currentPlayer.takeDrink(drinkAmt)
-    game.drinksTakenHistory = game.drinksTakenHistory.concat(Array(drinkAmt).fill(currentPlayer.name))
+    drinkArr = Array(drinkAmt).fill({
+      takenBy: currentPlayer.name,
+      givenBy: 'game',
+      round: game.round
+    })
+    game.drinksTakenHistory = game.drinksTakenHistory.concat(drinkArr)
   }
 }
 
@@ -788,104 +1139,13 @@ function poker(game) {
       if (radios[j].checked) {
         selectedNames.push(radios[j].value)
         btn.remove()
-        showPokerDrinks(selectedNames, game)
+        game.showPokerDrinks(selectedNames)
       }
     }
     // Handle Selected Names
     return false;
   });
   drinkArea.appendChild(promptForm)
-}
-
-function showPokerDrinks(playerNames, game) {
-  let nameText = ""
-  for (let k = 0; k < playerNames.length; k++) {
-    if (k === 0) {
-      nameText = playerNames[k]
-    } else if (k === playerNames.length - 1) {
-      nameText = nameText + ", and " + playerNames[k]
-    } else {
-      nameText = nameText + ", " + playerNames[k]
-    }
-  }
-  const drinkAmt = playerNames.length * 5
-  let text = nameText + " give " + drinkAmt + " drinks"
-  if (playerNames.length > 1) text += " total"
-
-  var drinkArea = document.getElementById("drinks-area")
-  drinkArea.innerHTML = ""
-
-  const drinkHeader = document.createElement("h3")
-  const drinkText = document.createTextNode(text)
-  drinkHeader.appendChild(drinkText)
-  drinkArea.appendChild(drinkHeader)
-
-  var btn = document.createElement('button');
-  btn.innerHTML = 'Next Turn'
-
-  drinkArea.appendChild(btn);
-  btn.addEventListener("click", () => {
-    const shouldContinue = game.finalizePokerDrinks(playerNames)
-    if (shouldContinue) {
-      document.getElementById("prompt-area").innerHTML = ""
-      document.getElementById("card-area").innerHTML = ""
-      document.getElementById("drinks-area").innerHTML = ""
-      run(game)
-    }
-  });
-
-  game.updateTotalNeeded(drinkAmt)
-
-  var colDiv = document.createElement("div");
-  colDiv.classList.add('math-col')
-
-  for (let i = 0; i < game.players.length; i++) {
-    const playerName = game.players[i].name
-    if (playerNames.includes(playerName)) continue;
-    var wrapperDiv = document.createElement("div");
-    wrapperDiv.classList.add('math-row')
-
-    var txtHolder = document.createElement("h4");
-    txtHolder.setAttribute('id', playerName)
-    var playerDrinkTxt = document.createTextNode(playerName + " takes " + game.currentDrinkCount(playerName));
-    txtHolder.appendChild(playerDrinkTxt)
-
-    var addBtn = document.createElement("button");
-    addBtn.classList.add('math-button')
-    var addBtnSpan = document.createElement('span')
-    addBtnSpan.innerHTML = '+'
-    addBtn.appendChild(addBtnSpan)
-    addBtn.addEventListener("click", (e) => {
-      if (e.preventDefault) e.preventDefault();
-      game.addToDrinkCount(playerName, function (newNum) {
-        var txtHolder = document.getElementById(playerName)
-        const newText = playerName + " takes " + newNum
-
-        txtHolder.innerText = newText
-      })
-      return false
-    });
-
-    var removeBtn = document.createElement("button");
-    removeBtn.classList.add('math-button')
-    var removeBtnSpan = document.createElement('span')
-    removeBtnSpan.innerHTML = '-'
-    removeBtn.appendChild(removeBtnSpan)
-    removeBtn.addEventListener("click", (e) => {
-      if (e.preventDefault) e.preventDefault();
-      game.removeFromDrinkCount(playerName, (newNum) => {
-        var txtHolder = document.getElementById(playerName)
-        txtHolder.innerText = playerName + " takes " + newNum
-      })
-      return false;
-    });
-
-    wrapperDiv.appendChild(addBtn)
-    wrapperDiv.appendChild(removeBtn)
-    wrapperDiv.appendChild(txtHolder)
-    colDiv.appendChild(wrapperDiv)
-  }
-  drinkArea.appendChild(colDiv)
 }
 
 function bus(game) {
@@ -952,7 +1212,7 @@ function cardClicked(blankCard, game) {
 
 function dealAndDrawBusCard(blankCard, card) {
   const royalty = ["a", "k", "q", "j"]
-  
+
   let suit = card.suit.toLowerCase()
   suit = suit === "diamonds" ? "diams" : suit;
   let rank = card.rank
@@ -964,7 +1224,7 @@ function dealAndDrawBusCard(blankCard, card) {
 
   const numSpan = document.createElement("span")
   numSpan.setAttribute('class', 'rank')
-  
+
   const numText = document.createTextNode(rankText)
   numSpan.appendChild(numText)
 
@@ -1053,7 +1313,7 @@ function showPrompts(game) {
     label.htmlFor = options[i];
     var labelText = document.createTextNode(options[i]);
     label.appendChild(labelText)
-    
+
     wrapperDiv.appendChild(radio)
     wrapperDiv.appendChild(label)
   }
@@ -1068,7 +1328,7 @@ function showPrompts(game) {
   promptForm.appendChild(btn);
   btn.addEventListener("click", (e) => {
     if (e.preventDefault) e.preventDefault();
-    
+
     var radios = document.getElementsByName(title);
     for (let j = 0; j < radios.length; j++) {
       if (radios[j].checked) {
@@ -1099,7 +1359,7 @@ function showPlayersAndHands(game) {
   for (let i = 0; i < game.players.length; i++) {
     var div = document.getElementById("player-div-" + count)
     div.innerHTML = ""
-    
+
     count = count < PLAYER_LIMIT ? count + 1 : 1
     const player = game.players[i];
     var row = document.createElement("div");
@@ -1131,6 +1391,7 @@ function showPlayersAndHands(game) {
 
 function showStatistics(game) {
   let count = 1
+  let extraStats = []
   for (let i = 0; i < game.players.length; i++) {
     var div = document.getElementById("player-div-" + count)
     div.innerHTML = ""
@@ -1144,30 +1405,57 @@ function showStatistics(game) {
     nameData.appendChild(name);
 
     var statsData = game.generateStats(player.name)
-    var totalGivenData = document.createElement("h4");
-    var totalGiven = document.createTextNode(`Total Drinks Given: ${statsData.totalGiven}`);
+    console.log('Name: ' + player.name)
+    console.log('statsData.gameGivenStats', statsData.gameGivenStats)
+    console.log('statsData.playerSpecificStats', statsData.playerSpecificStats)
+    var totalGivenData = document.createElement("p");
+    var totalGiven = document.createTextNode(`Gave out: ${statsData.totalGiven}`);
     totalGivenData.appendChild(totalGiven)
 
-    var totalTakenData = document.createElement("h4");
-    var totalTaken = document.createTextNode(`Total Drinks Taken: ${statsData.totalTaken}`);
+    var totalTakenData = document.createElement("p");
+    var totalTaken = document.createTextNode(`Took: ${statsData.totalTaken}`);
     totalTakenData.appendChild(totalTaken)
 
-    var givenStreakData = document.createElement("h4");
-    var givenStreak = document.createTextNode(`Most Drinks Given in a Row: ${statsData.givenStreak}`);
+    var givenStreakData = document.createElement("p");
+    var givenStreak = document.createTextNode(`Max Given Streak: ${statsData.givenStreak}`);
     givenStreakData.appendChild(givenStreak)
 
-    var takenStreakData = document.createElement("h4");
-    var takenStreak = document.createTextNode(`Most Drinks Taken in a Row: ${statsData.takenStreak}`);
+    var takenStreakData = document.createElement("p");
+    var takenStreak = document.createTextNode(`Max Taken Streak: ${statsData.takenStreak}`);
     takenStreakData.appendChild(takenStreak)
-    
+
+    var gameGivenTotalData = document.createElement("p");
+    var gameGivenTotal = document.createTextNode(`The Game gave you: ${statsData.gameGivenStats[player.name]}`);
+    gameGivenTotalData.appendChild(gameGivenTotal)
+
+    var gameGivenStreakData = document.createElement("p");
+    var gameGivenStreak = document.createTextNode(`Max Game Given Streak: ${statsData.gameGivenStats[player.name + "StreakMax"]}`);
+    gameGivenStreakData.appendChild(gameGivenStreak)
+
     row.appendChild(nameData)
     row.appendChild(totalGivenData)
     row.appendChild(totalTakenData)
     row.appendChild(givenStreakData)
     row.appendChild(takenStreakData)
+    row.appendChild(gameGivenTotalData)
+    row.appendChild(gameGivenStreakData)
+
+    for (let k = 0; k < game.players.length; k++) {
+      const name = game.players[k].name
+      if (name === player.name) continue
+
+      const data = statsData.playerSpecificStats
+
+      var specTotal = document.createElement('p')
+      var specTotalText = document.createTextNode(player.name + " gave " + name + " a total of " + data[name] + " with a max streak of " + data[name + "StreakMax"] + " in a row")
+      specTotal.appendChild(specTotalText)
+      extraStats.push(specTotal)
+    }
 
     div.appendChild(row)
   }
+
+  return extraStats;
 }
 
 function shuffle(array) {
@@ -1212,7 +1500,7 @@ function gotInsideOutsideRight(userVal, cardsDealt, game) {
   const sortedHand = hand[0].value < hand[1].value ? hand : [hand[1], hand[0]]
 
   const insideCorrect = userVal === "Inside" && sortedHand[0].value < card.value && sortedHand[1].value > card.value
-  const outsideCorrect = userVal === "Outside" && !(sortedHand[0].value < card.value && sortedHand[1].value > card.value)
+  const outsideCorrect = userVal === "Outside" && !(sortedHand[0].value <= card.value && sortedHand[1].value >= card.value)
 
   return insideCorrect || outsideCorrect
 }
