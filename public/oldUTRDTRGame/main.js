@@ -1,11 +1,10 @@
 const ROUND_START = 1
-const PLAYER_LIMIT = 6
 const load = () => {
-  const p = [new Player('marc'), new Player('victoria')]
-  var gameSetup = new GameSetup(p)
+  // const p = [new Player('mac'), new Player('v')]
+  var gameSetup = new GameSetup()
   gameSetup.showPlayers()
   var game;
-  
+
   const processForm = (e) => {
     if (e.preventDefault) e.preventDefault();
 
@@ -26,18 +25,6 @@ const load = () => {
     run(game)
   }
 
-  // const replay = () => {
-  //   var playerArea = document.getElementById("game-setup-container")
-  //   var gameArea = document.getElementById("game-container")
-
-  //   playerArea.style.display = "none"
-  //   gameArea.style.display = "block"
-
-  //   const samePlayers = game.players.map((p) => p.reset())
-  //   const newGame = new Game(samePlayers)
-  //   run(newGame)
-  // }
-
   const form = document.getElementById('name-form')
   if (form.attachEvent) {
     form.attachEvent("submit", processForm);
@@ -51,13 +38,6 @@ const load = () => {
   } else {
     startGameBtn.addEventListener("click", readyGame);
   }
-
-  // const replayBtn = document.getElementById('replay')
-  // if (replayBtn.attachEvent) {
-  //   replayBtn.attachEvent("click", replay);
-  // } else {
-  //   replayBtn.addEventListener("click", replay);
-  // }
 }
 
 window.onload = load;
@@ -107,16 +87,6 @@ class Player {
   constructor(name) {
     this.name = name
     this.hand = []
-    this.drinksGiven = 0
-    this.drinksTaken = 0
-  }
-
-  takeDrink(num = 1) {
-    this.drinksTaken += num
-  }
-
-  giveDrink(num = 1) {
-    this.drinksGiven += num
   }
 
   addCardsTohand(cards) {
@@ -134,13 +104,6 @@ class Player {
     }
     return cardsRemoved
   }
-
-  reset() {
-    this.hand = []
-    this.drinksGiven = 0
-    this.drinksTaken = 0
-    return this
-  }
 }
 
 class GameSetup {
@@ -149,7 +112,7 @@ class GameSetup {
   }
 
   addPlayer(newName) {
-    if (this.players.length === PLAYER_LIMIT) {
+    if (this.players.length === 4) {
       const max = document.getElementById('max')
       const color = max.style.color === 'red' ? 'orange' : 'red'
       max.setAttribute('style', 'color: ' + color + ';')
@@ -178,7 +141,7 @@ class GameSetup {
   showPlayers() {
     var playersNode = document.getElementById("players");
     playersNode.innerHTML = ""
-    
+
     for (let i = 0; i < this.players.length; i++) {
       const name = this.players[i].name;
       var div = document.createElement("div");
@@ -191,7 +154,7 @@ class GameSetup {
       var button = document.createElement('button');
       button.innerHTML = 'Remove Player'
       button.classList.add("remove-player-btn")
-      
+
       div.appendChild(para);
       div.appendChild(button);
       button.addEventListener("click", () => this.removePlayer(name));
@@ -231,7 +194,7 @@ class Game {
     {
       number: 4,
       title: "Guess the Suit",
-      options: ["Spades", "Clubs",  "Hearts", "Diamonds"],
+      options: ["Spades", "Clubs", "Hearts", "Diamonds"],
       numCardsToDeal: 1,
       logicFn: gotSuitRight
     },
@@ -259,21 +222,6 @@ class Game {
     this.busIndex = 0
     this.busIsClickable = true
     this.busCardsToMove = []
-    this.drinksGivenHistory = []
-    this.drinksTakenHistory = []
-    this.drinkCounter = this.setupDrinkCounter(players)
-  }
-
-  setupDrinkCounter(players) {
-    var counterObj = {
-      totalAdded: 0,
-      totalNeeded: 0
-    }
-    for (let i = 0; i < players.length; i++) {
-      const player = players[i];
-      counterObj[player.name] = 0
-    }
-    return counterObj
   }
 
   fillRegularDeck() {
@@ -292,107 +240,6 @@ class Game {
       }
     }
     return new Deck(cards)
-  }
-
-  updateTotalNeeded(amt) {
-    this.drinkCounter.totalNeeded = amt
-  }
-
-  addToDrinkCount(playerName, cb) {
-    if (this.drinkCounter.totalNeeded === this.drinkCounter.totalAdded) return;
-
-    this.drinkCounter[playerName] += 1
-    this.drinkCounter.totalAdded += 1
-    cb(this.drinkCounter[playerName])
-  }
-
-  removeFromDrinkCount(playerName, cb) {
-    if (this.drinkCounter.totalAdded === 0) return;
-    if (this.drinkCounter[playerName] === 0) return;
-
-    this.drinkCounter[playerName] -= 1
-    this.drinkCounter.totalAdded -= 1
-    cb(this.drinkCounter[playerName])
-  }
-
-  currentDrinkCount(playerName) {
-    return this.drinkCounter[playerName];
-  }
-
-  finalizeDrinks(ownerName) {
-    if (this.drinkCounter.totalNeeded !== this.drinkCounter.totalAdded) return false;
-    
-    const owner = this.players.find((p) => p.name === ownerName)
-    for (let i = 0; i < this.players.length; i++) {
-      if (this.players[i].name === ownerName) continue
-
-      const player = this.players[i];
-      const name = player.name;
-      var drinkCount = this.drinkCounter[player.name]
-      while (drinkCount > 0) {
-        player.takeDrink()
-        this.drinksTakenHistory.push(name)
-        
-        owner.giveDrink()
-        this.drinksGivenHistory.push(ownerName)
-
-        drinkCount--
-      }
-      this.drinkCounter[player.name] = 0
-    }
-    this.drinkCounter.totalNeeded = 0
-    this.drinkCounter.totalAdded = 0
-    
-    return true
-  }
-
-  finalizePokerDrinks(ownerNames) {
-    if (this.drinkCounter.totalNeeded !== this.drinkCounter.totalAdded) return false;
-
-    for (let i = 0; i < this.players.length; i++) {
-      if (ownerNames.includes(this.players[i].name)) continue
-
-      const player = this.players[i];
-      const name = player.name;
-      var drinkCount = this.drinkCounter[player.name]
-      while (drinkCount > 0) {
-        player.takeDrink()
-        this.drinksTakenHistory.push(name)
-
-        drinkCount--
-      }
-      this.drinkCounter[player.name] = 0
-    }
-
-    for (let j = 0; j < ownerNames.length; j++) {
-      const owner = this.players.find((p) => p.name === ownerNames[j])
-      for (let k = 0; k < 5; k++) {
-        owner.giveDrink()
-        this.drinksGivenHistory.push(ownerNames[j])
-      }
-    }
-    
-    this.drinkCounter.totalNeeded = 0
-    this.drinkCounter.totalAdded = 0
-
-    return true
-  }
-
-  finalizeBusDrinks(taker, owner = null) {
-    const amt = parseInt(this.busOrder[this.busIndex - 1].substring(5, 6))
-    if (owner) {
-      for (let i = 0; i < amt; i++) {
-        taker.takeDrink()
-        this.drinksTakenHistory.push(taker.name)
-
-        owner.giveDrink()
-        this.drinksGivenHistory.push(owner.name)
-      }
-    } else {
-      taker.takeDrink()
-      this.drinksTakenHistory.push(taker.name)
-    }
-    return true
   }
 
   addToBusCards(card, owner) {
@@ -430,7 +277,6 @@ class Game {
       takeBtn.addEventListener("click", (e) => {
         if (e.preventDefault) e.preventDefault();
 
-        this.finalizeBusDrinks(data.owner)
         takeBtn.remove()
         busPromptArea.innerHTML = ""
         this.busCardsToMove = [...this.busCardsToMove.slice(1, this.busCardsToMove.length)]
@@ -468,17 +314,17 @@ class Game {
       var btnSpan = document.createElement('span')
       btnSpan.innerHTML = 'Submit'
       btn.appendChild(btnSpan)
-      
+
       promptForm.appendChild(btn);
       btn.addEventListener("click", (e) => {
         if (e.preventDefault) e.preventDefault();
 
         var radios = document.getElementsByName("players");
         for (let j = 0; j < radios.length; j++) {
+          radios[j].disabled = true
           if (radios[j].checked) {
             data.owner.removeCardsFromHand([card])
             const newOwner = this.players.find((p) => p.name === radios[j].value)
-            this.finalizeBusDrinks(newOwner, data.owner)
             newOwner.addCardsTohand([card])
             btn.remove()
             busPromptArea.innerHTML = ""
@@ -503,7 +349,7 @@ class Game {
 
     let text = ownerName + ", "
 
-    
+
     if (isGive) {
       text += "who gets to drink " + drinkAmt + "? (they also get your " + rankOfSuit + ")"
     } else {
@@ -519,45 +365,11 @@ class Game {
   showGameOver() {
     const busArea = document.getElementById('bus-area')
     busArea.innerHTML = ''
-    busArea.setAttribute("style", "height: 0px;")
     const tableArea = document.getElementById('header-container')
     tableArea.innerHTML = ''
-    
+
     const gameOverArea = document.getElementById('game-over-area')
     gameOverArea.setAttribute('style', 'display: block;')
-    showStatistics(this)
-  }
-
-  generateStats(name) {
-    const givenStats = this.findStreakAndTotal(name, this.drinksGivenHistory)
-    const takenStats = this.findStreakAndTotal(name, this.drinksTakenHistory)
-    return (
-      {
-        name: name,
-        totalGiven: givenStats.total,
-        totalTaken: takenStats.total,
-        givenStreak: givenStats.maxStreak,
-        takenStreak: takenStats.maxStreak
-      }
-    )
-  }
-
-  findStreakAndTotal(val, arr) {
-    var streakCounter = 0;
-    var maxStreak = 0
-    var total = 0;
-    for (let i = 0; i < arr.length; i++) {
-      const match = arr[i] === val
-      if (match) {
-        streakCounter++
-        total++
-      } else {
-        streakCounter = 0
-      }
-
-      if (streakCounter > maxStreak) maxStreak = streakCounter
-    }
-    return ({ maxStreak, total })
   }
 }
 
@@ -573,7 +385,7 @@ function run(game) {
     game.round += 1
     game.turnCount = 1
   }
-  
+
 
   // Draw Players and Hands
   showPlayersAndHands(game)
@@ -638,7 +450,6 @@ function showDrinks(isCorrect, currentPlayer, game, txt = undefined) {
     const drinkPlural = roundInfo.number === 1 ? " drink" : " drinks"
     text = currentPlayer.name + giveOrTake + roundInfo.number + drinkPlural
   }
-  const drinkAmt = game.ROUND_DATA[game.round - 1].number
 
   var drinkArea = document.getElementById("drinks-area")
   drinkArea.innerHTML = ""
@@ -653,76 +464,11 @@ function showDrinks(isCorrect, currentPlayer, game, txt = undefined) {
 
   drinkArea.appendChild(btn);
   btn.addEventListener("click", () => {
-    const shouldContinue = game.finalizeDrinks(currentPlayer.name)
-    if (shouldContinue) {
-      document.getElementById("prompt-area").innerHTML = ""
-      document.getElementById("card-area").innerHTML = ""
-      document.getElementById("drinks-area").innerHTML = ""
-      run(game)
-    }
+    document.getElementById("prompt-area").innerHTML = ""
+    document.getElementById("card-area").innerHTML = ""
+    document.getElementById("drinks-area").innerHTML = ""
+    run(game)
   });
-
-  if (isCorrect) {
-    handOutDrinks(game, currentPlayer, drinkAmt, drinkArea)
-  } else {
-    currentPlayer.takeDrink(drinkAmt)
-    game.drinksTakenHistory = game.drinksTakenHistory.concat(Array(drinkAmt).fill(currentPlayer.name))
-  }
-}
-
-function handOutDrinks(game, currentPlayer, drinkAmt, drinkArea) {
-  game.updateTotalNeeded(drinkAmt)
-
-  var colDiv = document.createElement("div");
-  colDiv.classList.add('math-col')
-
-  for (let i = 0; i < game.players.length; i++) {
-    const playerName = game.players[i].name
-    if (playerName === currentPlayer.name) continue;
-    var wrapperDiv = document.createElement("div");
-    wrapperDiv.classList.add('math-row')
-
-    var txtHolder = document.createElement("h4");
-    txtHolder.setAttribute('id', playerName)
-    var playerDrinkTxt = document.createTextNode(playerName + " takes " + game.currentDrinkCount(playerName));
-    txtHolder.appendChild(playerDrinkTxt)
-
-    var addBtn = document.createElement("button");
-    addBtn.classList.add('math-button')
-    var addBtnSpan = document.createElement('span')
-    addBtnSpan.innerHTML = '+'
-    addBtn.appendChild(addBtnSpan)
-    addBtn.addEventListener("click", (e) => {
-      if (e.preventDefault) e.preventDefault();
-      game.addToDrinkCount(playerName, function (newNum) {
-        var txtHolder = document.getElementById(playerName)
-        const newText = playerName + " takes " + newNum
-
-        txtHolder.innerText = newText
-      })
-      return false
-    });
-
-    var removeBtn = document.createElement("button");
-    removeBtn.classList.add('math-button')
-    var removeBtnSpan = document.createElement('span')
-    removeBtnSpan.innerHTML = '-'
-    removeBtn.appendChild(removeBtnSpan)
-    removeBtn.addEventListener("click", (e) => {
-      if (e.preventDefault) e.preventDefault();
-      game.removeFromDrinkCount(playerName, (newNum) => {
-        var txtHolder = document.getElementById(playerName)
-        txtHolder.innerText = playerName + " takes " + newNum
-      })
-      return false;
-    });
-
-    wrapperDiv.appendChild(addBtn)
-    wrapperDiv.appendChild(removeBtn)
-    wrapperDiv.appendChild(txtHolder)
-    colDiv.appendChild(wrapperDiv)
-  }
-  drinkArea.appendChild(colDiv)
 }
 
 function poker(game) {
@@ -732,160 +478,8 @@ function poker(game) {
     player.addCardsTohand(card)
   }
   showPlayersAndHands(game)
-  var drinkArea = document.getElementById("drinks-area")
-  drinkArea.innerHTML = ""
-
-  const drinkHeader = document.createElement("h3")
-  const drinkText = document.createTextNode("Poker Winner(s) give 5 drinks")
-  drinkHeader.appendChild(drinkText)
-  drinkArea.appendChild(drinkHeader)
-
-  var promptForm = document.createElement("form");
-  const question = document.createElement("h4")
-  const questionText = document.createTextNode("Who won?")
-  question.appendChild(questionText)
-  promptForm.appendChild(question)
-
-  var wrapperDiv = document.createElement("div");
-  wrapperDiv.classList.add('checkbox-toolbar')
-  const names = []
-  for (let i = 0; i < game.players.length; i++) {
-    const playerName = game.players[i].name
-    names.push(playerName)
-
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox"
-    checkbox.id = playerName;
-    checkbox.value = playerName;
-    checkbox.name = playerName
-
-    var label = document.createElement("label");
-    label.htmlFor = playerName;
-    var labelText = document.createTextNode(playerName);
-    label.appendChild(labelText)
-
-    wrapperDiv.appendChild(checkbox)
-    wrapperDiv.appendChild(label)
-  }
-  promptForm.appendChild(wrapperDiv)
-
-  var btn = document.createElement('button');
-  btn.classList.add('submit-button')
-  var btnSpan = document.createElement('span')
-  btnSpan.innerHTML = 'Submit'
-  btn.appendChild(btnSpan)
-
-  promptForm.appendChild(btn);
-  var selectedNames = []
-  btn.addEventListener("click", (e) => {
-    if (e.preventDefault) e.preventDefault();
-
-    var radios = []
-    for (let i = 0; i < names.length; i++) {
-      radios.push(document.getElementById(names[i]));
-    }
-    for (let j = 0; j < radios.length; j++) {
-      if (radios[j].checked) {
-        selectedNames.push(radios[j].value)
-        btn.remove()
-        showPokerDrinks(selectedNames, game)
-      }
-    }
-    // Handle Selected Names
-    return false;
-  });
-  drinkArea.appendChild(promptForm)
-}
-
-function showPokerDrinks(playerNames, game) {
-  let nameText = ""
-  for (let k = 0; k < playerNames.length; k++) {
-    if (k === 0) {
-      nameText = playerNames[k]
-    } else if (k === playerNames.length - 1) {
-      nameText = nameText + ", and " + playerNames[k]
-    } else {
-      nameText = nameText + ", " + playerNames[k]
-    }
-  }
-  const drinkAmt = playerNames.length * 5
-  let text = nameText + " give " + drinkAmt + " drinks"
-  if (playerNames.length > 1) text += " total"
-
-  var drinkArea = document.getElementById("drinks-area")
-  drinkArea.innerHTML = ""
-
-  const drinkHeader = document.createElement("h3")
-  const drinkText = document.createTextNode(text)
-  drinkHeader.appendChild(drinkText)
-  drinkArea.appendChild(drinkHeader)
-
-  var btn = document.createElement('button');
-  btn.innerHTML = 'Next Turn'
-
-  drinkArea.appendChild(btn);
-  btn.addEventListener("click", () => {
-    const shouldContinue = game.finalizePokerDrinks(playerNames)
-    if (shouldContinue) {
-      document.getElementById("prompt-area").innerHTML = ""
-      document.getElementById("card-area").innerHTML = ""
-      document.getElementById("drinks-area").innerHTML = ""
-      run(game)
-    }
-  });
-
-  game.updateTotalNeeded(drinkAmt)
-
-  var colDiv = document.createElement("div");
-  colDiv.classList.add('math-col')
-
-  for (let i = 0; i < game.players.length; i++) {
-    const playerName = game.players[i].name
-    if (playerNames.includes(playerName)) continue;
-    var wrapperDiv = document.createElement("div");
-    wrapperDiv.classList.add('math-row')
-
-    var txtHolder = document.createElement("h4");
-    txtHolder.setAttribute('id', playerName)
-    var playerDrinkTxt = document.createTextNode(playerName + " takes " + game.currentDrinkCount(playerName));
-    txtHolder.appendChild(playerDrinkTxt)
-
-    var addBtn = document.createElement("button");
-    addBtn.classList.add('math-button')
-    var addBtnSpan = document.createElement('span')
-    addBtnSpan.innerHTML = '+'
-    addBtn.appendChild(addBtnSpan)
-    addBtn.addEventListener("click", (e) => {
-      if (e.preventDefault) e.preventDefault();
-      game.addToDrinkCount(playerName, function (newNum) {
-        var txtHolder = document.getElementById(playerName)
-        const newText = playerName + " takes " + newNum
-
-        txtHolder.innerText = newText
-      })
-      return false
-    });
-
-    var removeBtn = document.createElement("button");
-    removeBtn.classList.add('math-button')
-    var removeBtnSpan = document.createElement('span')
-    removeBtnSpan.innerHTML = '-'
-    removeBtn.appendChild(removeBtnSpan)
-    removeBtn.addEventListener("click", (e) => {
-      if (e.preventDefault) e.preventDefault();
-      game.removeFromDrinkCount(playerName, (newNum) => {
-        var txtHolder = document.getElementById(playerName)
-        txtHolder.innerText = playerName + " takes " + newNum
-      })
-      return false;
-    });
-
-    wrapperDiv.appendChild(addBtn)
-    wrapperDiv.appendChild(removeBtn)
-    wrapperDiv.appendChild(txtHolder)
-    colDiv.appendChild(wrapperDiv)
-  }
-  drinkArea.appendChild(colDiv)
+  const text = "Poker Winner(s) give 5 drinks"
+  showDrinks(null, null, game, text)
 }
 
 function bus(game) {
@@ -952,7 +546,7 @@ function cardClicked(blankCard, game) {
 
 function dealAndDrawBusCard(blankCard, card) {
   const royalty = ["a", "k", "q", "j"]
-  
+
   let suit = card.suit.toLowerCase()
   suit = suit === "diamonds" ? "diams" : suit;
   let rank = card.rank
@@ -964,7 +558,7 @@ function dealAndDrawBusCard(blankCard, card) {
 
   const numSpan = document.createElement("span")
   numSpan.setAttribute('class', 'rank')
-  
+
   const numText = document.createTextNode(rankText)
   numSpan.appendChild(numText)
 
@@ -1053,7 +647,7 @@ function showPrompts(game) {
     label.htmlFor = options[i];
     var labelText = document.createTextNode(options[i]);
     label.appendChild(labelText)
-    
+
     wrapperDiv.appendChild(radio)
     wrapperDiv.appendChild(label)
   }
@@ -1068,9 +662,10 @@ function showPrompts(game) {
   promptForm.appendChild(btn);
   btn.addEventListener("click", (e) => {
     if (e.preventDefault) e.preventDefault();
-    
+
     var radios = document.getElementsByName(title);
     for (let j = 0; j < radios.length; j++) {
+      radios[j].disabled = true
       if (radios[j].checked) {
         dealCards(radios[j].value, game)
         btn.remove()
@@ -1099,8 +694,8 @@ function showPlayersAndHands(game) {
   for (let i = 0; i < game.players.length; i++) {
     var div = document.getElementById("player-div-" + count)
     div.innerHTML = ""
-    
-    count = count < PLAYER_LIMIT ? count + 1 : 1
+
+    count = count < 4 ? count + 1 : 1
     const player = game.players[i];
     var row = document.createElement("div");
 
@@ -1124,47 +719,6 @@ function showPlayersAndHands(game) {
 
     row.appendChild(nameData)
     row.appendChild(cardData)
-
-    div.appendChild(row)
-  }
-}
-
-function showStatistics(game) {
-  let count = 1
-  for (let i = 0; i < game.players.length; i++) {
-    var div = document.getElementById("player-div-" + count)
-    div.innerHTML = ""
-
-    count = count < PLAYER_LIMIT ? count + 1 : 1
-    const player = game.players[i];
-    var row = document.createElement("div");
-
-    var nameData = document.createElement("h3");
-    var name = document.createTextNode(player.name);
-    nameData.appendChild(name);
-
-    var statsData = game.generateStats(player.name)
-    var totalGivenData = document.createElement("h4");
-    var totalGiven = document.createTextNode(`Total Drinks Given: ${statsData.totalGiven}`);
-    totalGivenData.appendChild(totalGiven)
-
-    var totalTakenData = document.createElement("h4");
-    var totalTaken = document.createTextNode(`Total Drinks Taken: ${statsData.totalTaken}`);
-    totalTakenData.appendChild(totalTaken)
-
-    var givenStreakData = document.createElement("h4");
-    var givenStreak = document.createTextNode(`Most Drinks Given in a Row: ${statsData.givenStreak}`);
-    givenStreakData.appendChild(givenStreak)
-
-    var takenStreakData = document.createElement("h4");
-    var takenStreak = document.createTextNode(`Most Drinks Taken in a Row: ${statsData.takenStreak}`);
-    takenStreakData.appendChild(takenStreak)
-    
-    row.appendChild(nameData)
-    row.appendChild(totalGivenData)
-    row.appendChild(totalTakenData)
-    row.appendChild(givenStreakData)
-    row.appendChild(takenStreakData)
 
     div.appendChild(row)
   }

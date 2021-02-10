@@ -44,11 +44,11 @@ form > button {
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-width: 15vw;
+    min-width: 24vw;
 }
 
 .player-hand {
-    padding-left: 3vw;
+    padding-left: 7vw;
 }
 
 .center {
@@ -80,40 +80,6 @@ hr.rounded {
     height: 40vh;
 }
 
-#header-container-bus {
-    padding-bottom: 30px;
-}
-
-#bus-prompt-area {
-    text-align: center;
-    padding-bottom: 50px;
-}
-
-.give-take {
-    text-align: center;
-}
-
-.center-flex {
-    display: flex;
-    justify-content: center;
-}
-
-.side-bus {
-    flex: 0 0;
-    padding-top: 60px;
-}
-
-.math-row {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: center;
-}
-
-.math-col {
-    flex-direction: column;
-}
-
 /**
  * Button Styling
 */
@@ -143,19 +109,6 @@ button {
 .start-btn {
     background-color: #D3E3E7;
     color: black;
-}
-
-.math-button {
-    border: none;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 1px 1px;
-    cursor: pointer;
-    border-radius: 10px;
-    height: 40px;
 }
 
 /* .submit-button {
@@ -233,40 +186,6 @@ button {
     border-color: #4c4;
 }
 
-/* Checkbox button styling */
-.checkbox-toolbar {
-    margin: 10px;
-}
-
-.checkbox-toolbar input[type="checkbox"] {
-    opacity: 0;
-    position: fixed;
-    width: 0;
-}
-
-.checkbox-toolbar label {
-    display: inline-block;
-    background-color: #ddd;
-    padding: 10px 20px;
-    font-family: sans-serif, Arial;
-    font-size: 16px;
-    border: 2px solid #444;
-    border-radius: 4px;
-}
-
-.checkbox-toolbar label:hover {
-    background-color: #dfd;
-}
-
-.checkbox-toolbar input[type="checkbox"]:focus + label {
-    border: 2px dashed #444;
-}
-
-.checkbox-toolbar input[type="checkbox"]:checked + label {
-    background-color: #bfb;
-    border-color: #4c4;
-}
-
 /**
  * Styles for CSS Playing Cards
  *
@@ -291,7 +210,7 @@ button {
     padding: .25em;
     margin: 0 .5em .5em 0;
     text-align: center;
-    font-size: 1.1em; /* @change: adjust this value to make bigger or smaller cards */
+    font-size: 1.2em; /* @change: adjust this value to make bigger or smaller cards */
     font-weight: normal;
     font-family: Arial, sans-serif;
     position: relative;
@@ -897,37 +816,3 @@ button {
 .playingCards ul.deck li:nth-child(30) { left: 58px; bottom: 29px; }
 .playingCards ul.deck li:nth-child(31) { left: 60px; bottom: 30px; }
 .playingCards ul.deck li:nth-child(32) { left: 62px; bottom: 31px; }
-
-
-/* Media Queries */
-
-@media screen and (min-width: 320px) and (max-width: 1026px){
-    #bus-area {
-        flex-wrap: wrap;
-    }
-    #bus-area > div {
-        width: 100%;
-    }
-
-    #bus-prompt-area {
-        padding: 0px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .player-row {
-        align-items: flex-start;
-        height: 30vh;
-    }
-
-    #header-container-bus {
-        padding-bottom: 5px;
-    }
-    #header-container-bus > h2 {
-        margin: 0px;
-    }
-    #header-container-bus > h3 {
-        margin: 0px;
-    }
-}

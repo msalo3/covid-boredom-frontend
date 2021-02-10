@@ -13,7 +13,7 @@
   <div id="game-setup-container" class="center">
     <h1>Up the River, Down the River</h2>
       <h2>Add Players</h2>
-      <h3 id="max">(6 player max and names must be unique)</h3>
+      <h3 id="max">(4 player max and names must be unique)</h3>
       <form id="name-form">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" maxlength="12"><br>
@@ -40,10 +40,6 @@
 
         <div id="player-div-4" class="player playingCards faceImages rotateHand">
         </div>
-        <div id="player-div-5" class="player playingCards faceImages rotateHand">
-        </div>
-        <div id="player-div-6" class="player playingCards faceImages rotateHand">
-        </div>
       </div>
 
       <div class="table-area">
@@ -60,38 +56,32 @@
         <hr class="rounded" id="divider" style="display: none;">
         <div id="bus-area" style="display: none;">
           <div>
-            <div id="header-container-bus" class="center">
+            <div id="header-container-bus" class="center" style='padding-bottom: 30px;'>
               <h2 id="round-number-bus">Round 6</h2>
               <h3 id="round-title">Give and Take</h3>
             </div>
-            <div id="bus-prompt-area">Click a card to begin</div>
+            <div id="bus-prompt-area" style="text-align: center; padding-bottom: 50px;">Click a card to begin</div>
           </div>
           <div>
-            <h3 class="give-take">Give</h3>
-            <div class="playingCards faceImages center-flex">
-              <div id="bus-left" class="side-bus"></div>
+            <h3 style="text-align: center;">Give</h3>
+            <div class="playingCards faceImages" style="display: flex; justify-content: center;">
+              <div id="bus-left" style="flex: 0 0; padding-top: 60px;"></div>
               <div id="bus-mid">
                 <div id="bus-mid-top">
                 </div>
                 <div id="bus-mid-bottom">
                 </div>
               </div>
-              <div id="bus-right" class="side-bus">
+              <div id="bus-right" style="flex: 0 0; padding-top: 60px;">
               </div>
             </div>
-            <h3 class="give-take">Take</h3>
+            <h3 style="text-align: center;">Take</h3>
           </div>
         </div>
 
         <div id="game-over-area" class="center" style="display: none;">
           <h2>Game Over</h2>
           <h3>Thank you for playing!</h3>
-          <!-- <div>
-            <button id="replay">Run it back</button>
-          </div> -->
-          <div>
-            <button id="replay2" onclick="location.reload()">Play Again</button>
-          </div>
         </div>
       </div>
     </div>
