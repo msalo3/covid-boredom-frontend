@@ -7,9 +7,12 @@ import Instructions from "./Instructions"
 
 import "./scattergories.css"
 
-const ScatHead = () => (
+const ScatHead = ({cb}) => (
   <h2 className="header">
-    Scattergories
+    Scattergorie
+    <span onClick={cb}>
+      s
+    </span>
     <sup className="icon">
       <Instructions />
     </sup>
@@ -23,6 +26,7 @@ class Scattergories extends React.Component {
       minutes: 3,
       timeIsSet: false,
       timerIsCounting: false,
+      showListSelect: false
     }
   }
 
@@ -51,12 +55,12 @@ class Scattergories extends React.Component {
   }
 
   render() {
-    const { timerIsCounting } = this.state
+    const { timerIsCounting, showListSelect } = this.state
     return (
       <div>
-        <ScatHead />
+        <ScatHead cb={() => this.setState((prevState) => ({ showListSelect: !prevState.showListSelect }))}/>
         <div className="scat-content">
-          <List timerIsCounting={timerIsCounting} />
+          <List timerIsCounting={timerIsCounting} showListSelect={showListSelect} />
           <div className="config-content">
             {this.timerOrInput()}
             <LetterDie timerIsCounting={timerIsCounting} s />

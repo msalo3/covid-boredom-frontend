@@ -28,23 +28,23 @@ class List extends React.Component {
     this.setState({ listId: randomId })
   }
 
-  // selectList = (timerIsCounting) => (
-  //   <div>
-  //     List Number{" "}
-  //     <select
-  //       id="lists"
-  //       disabled={timerIsCounting}
-  //       onChange={(event) => this.setState({ listId: event.target.value })}
-  //     >
-  //       {data.map((item) => (
-  //         <option value={item.value}>{item.value}</option>
-  //       ))}
-  //     </select>
-  //   </div>
-  // )
+  selectList = (timerIsCounting) => (
+    <div>
+      List Number{" "}
+      <select
+        id="lists"
+        disabled={timerIsCounting}
+        onChange={(event) => this.setState({ listId: event.target.value })}
+      >
+        {data.map((item) => (
+          <option value={item.value}>{item.value}</option>
+        ))}
+      </select>
+    </div>
+  )
 
   render() {
-    const { timerIsCounting } = this.props
+    const { timerIsCounting, showListSelect } = this.props
     const { listId, data } = this.state
     const list = data[listId]
     return (
@@ -65,6 +65,9 @@ class List extends React.Component {
         </span>
         <div className="list-container">
           {this.renderListItems(list, timerIsCounting)}
+        </div>
+        <div>
+          {showListSelect && this.selectList(timerIsCounting)}
         </div>
       </div>
     )
