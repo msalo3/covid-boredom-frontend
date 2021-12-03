@@ -1,0 +1,36 @@
+#img {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+      }
+      #snakeboard {
+        position: absolute;
+        top: 50%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+      }
+      #score {
+        font-size: 100px;
+        color: #B19CD9;
+      }
+      #endtext {
+        font-size: 80px;
+        color: #c23b22;
+        position: relative;
+        z-index: 99;
+      }
+      #start-btn {
+        background-color: #008CBA;
+        border: none;
+        color: white;
+        padding: 10px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+      .text {
+        text-align: center;
+      }

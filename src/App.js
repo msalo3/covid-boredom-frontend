@@ -29,6 +29,7 @@ import {
   faBeer
 } from "@fortawesome/free-solid-svg-icons"
 import { fab } from "@fortawesome/free-brands-svg-icons"
+import Snake from "./snake"
 
 library.add(
   faComment,
@@ -65,7 +66,7 @@ class App extends React.Component {
           <Route
             path="/snake"
             render={(props) => (
-              <Layout {...props}>{<ComingSoon {...props} />}</Layout>
+              <Layout {...props}>{<Snake {...props} />}</Layout>
             )}
           />
           <Route
