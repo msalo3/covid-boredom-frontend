@@ -29,6 +29,7 @@ class NbaDetail extends React.Component {
   }
 
   getDetails = async ({ name, link }) => {
+    console.log('ink', link)
     let [details, images] = await Promise.all([
       apiClient.getNbaPlayerByLink(link),
       apiClient.getNbaImage(name),
@@ -36,7 +37,8 @@ class NbaDetail extends React.Component {
     if (details === undefined) {
       details = []
     } else {
-      details = details.perGame.map((item, i) => {
+      console.log('HEUE', details)
+      details = details.perGamePerGame.map((item, i) => {
         item.id = i
         return item
       })
@@ -87,6 +89,7 @@ class NbaDetail extends React.Component {
 
   renderDetails = () => {
     const { details } = this.state
+    console.log('deets', details)
     return details.map((stats) => <NbaCard key={stats.id} stats={stats} />)
   }
 
